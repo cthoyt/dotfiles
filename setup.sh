@@ -18,9 +18,19 @@ brew install caskroom/cask/brew-cask
 brew doctor
 brew update
 
+# mate
+brew cask install textmate
+### TODO link mate and fix export in .bash_profile
+### ln -s /Applications/TextMate.app/Contents/Resources/mate ~/bin/mate
+
 # git 
 brew install git
 brew cask install github-desktop
+git config --global user.name "Charlie Hoyt"
+git config --global user.email cthoyt@gmail.com
+git config --global core.excludesfile '~/.gitignore'
+git config --global core.excludesfile '~/.ipynb_checkpoints'
+git config --global core.editor "mate -wl1"
 
 # R
 brew cask install xquartz # r dependency
@@ -80,7 +90,6 @@ brew cask install lastpass
 brew cask install shuttle
 brew cask install skype
 brew cask install transmission
-brew cask install textmate
 brew cask install vlc
 brew cask install vox
 brew cask install zotero
@@ -92,11 +101,13 @@ brew cask install eclipse-java
 # cleanup
 brew update
 brew cask update
-
 brew cleanup
 brew cask cleanup
 
-### TODO: place .bashrc and .bash_profile in ~
+# Random
 
-# change default screenshot location
+## change default screenshot location
 defaults write com.apple.screencapture location ~/Pictures/; killall SystemUIServer
+
+### TODO: set cronjob to brew update and brew cask update
+### TODO: place .bashrc and .bash_profile in ~
