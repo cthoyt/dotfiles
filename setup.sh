@@ -13,6 +13,8 @@ xcode-select --install
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 brew install caskroom/cask/brew-cask
 
+### TODO: edit /etc/paths algorithmically so /usr/local/bin is first so brew stuff plays nice
+
 brew doctor
 brew update
 
@@ -21,7 +23,7 @@ brew install git
 brew cask install github-desktop
 
 # R
-brew cask install xquartz # R uses XQuartz as a dependency
+brew cask install xquartz # r dependency
 brew tap homebrew/science
 brew install R
 brew cask install rstudio
@@ -36,6 +38,7 @@ brew cask install postgres
 brew install python3
 
 ## virtualenv (http://docs.python-guide.org/en/latest/dev/virtualenvs/)
+### TODO: reinvestigate using virtualenv. necessary?
 ### pip install virtualenv virtualenvwrapper
 ### export WORKON_HOME=~/.virtualenvs
 ### source /usr/local/bin/virtualenvwrapper.sh
@@ -46,9 +49,9 @@ brew install python3
 pip3 install numpy
 pip3 install pandas
 pip3 install scipy
-brew install freetype #used for matplotlib
+brew install freetype # matplotlib dependency
 pip3 install matplotlib
-brew install zeromq #used for jupyter
+brew install zeromq # jupyter dependency
 pip3 install jupyter
 
 ## jupyter bash kernel
@@ -56,7 +59,6 @@ pip3 install bash_kernel
 python3 -m bash_kernel.install
 
 ## jupyter r kernel
-brew install zeromq
 R -e "install.packages(c('rzmq','repr','IRkernel','IRdisplay'),repos = c('http://irkernel.github.io/', 'http://cran.us.r-project.org'))
 IRkernel::installspec()"
 R -e "IRkernel::installspec()"
@@ -94,6 +96,7 @@ brew cask update
 brew cleanup
 brew cask cleanup
 
+### TODO: place .bashrc and .bash_profile in ~
+
 # change default screenshot location
-defaults write com.apple.screencapture location ~/Pictures/
-killall SystemUIServer
+defaults write com.apple.screencapture location ~/Pictures/; killall SystemUIServer
