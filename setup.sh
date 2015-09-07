@@ -3,6 +3,7 @@
 # Credits and Ideas
 ### see http://www.lowindata.com/2013/installing-scientific-python-on-mac-os-x/
 ### see https://gist.github.com/ChristopherA/d48946c72d75c4330374
+### see https://github.com/mathiasbynens/dotfiles
 
 cd ~
 
@@ -12,11 +13,17 @@ xcode-select --install
 # brew and brew-cask (http://brew.sh/ and https://github.com/caskroom/homebrew-cask)
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 brew install caskroom/cask/brew-cask
+brew install gcc
 
 ### TODO: edit /etc/paths algorithmically so /usr/local/bin is first so brew stuff plays nice
 
 brew doctor
 brew update
+
+
+# bash
+### echo "/usr/local/bin/bash" >> /etc/shells
+### chsh -s /usr/local/bin/bash
 
 # mate
 brew cask install textmate
@@ -110,4 +117,7 @@ brew cask cleanup
 defaults write com.apple.screencapture location ~/Pictures/; killall SystemUIServer
 
 ### TODO: set cronjob to brew update and brew cask update
+### * 13 * * * brew 
+
+
 ### TODO: place .bashrc and .bash_profile in ~
