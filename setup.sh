@@ -85,20 +85,22 @@ brew tap rdkit/rdkit
 brew install rdkit
 
 # GUI Applications
-brew cask install cyberduck
 brew cask install caffeine
 brew cask install dropbox
 brew cask install evernote
+brew cask install filezilla
 brew cask install flux
 brew cask install google-chrome
 brew cask install google-drive
 brew cask install google-photos-backup
 brew cask install lastpass
+brew cask install perian
 brew cask install shuttle
 brew cask install skype
 brew cask install transmission
 brew cask install vlc
 brew cask install vox
+brew cask install vox-preference-pane
 brew cask install zotero
 
 # java
