@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 # Credits and Ideas
-### see http://www.lowindata.com/2013/installing-scientific-python-on-mac-os-x/
-### see https://gist.github.com/ChristopherA/d48946c72d75c4330374
-### see https://github.com/mathiasbynens/dotfiles
+# * see http://www.lowindata.com/2013/installing-scientific-python-on-mac-os-x/
+# * see https://gist.github.com/ChristopherA/d48946c72d75c4330374
+# * see https://github.com/mathiasbynens/dotfiles
 
 cd ~
 
@@ -93,6 +93,7 @@ brew cask install flux
 brew cask install google-chrome
 brew cask install google-drive
 brew cask install google-photos-backup
+brew cask install istat-menu
 brew cask install lastpass
 brew cask install perian
 brew cask install shuttle
@@ -123,3 +124,8 @@ defaults write com.apple.screencapture location ~/Pictures/; killall SystemUISer
 
 
 ### TODO: place .bashrc and .bash_profile in ~
+
+#Extra
+#brew install pymol
+#pip3 install ipymol
+#pip3 install bioconductor

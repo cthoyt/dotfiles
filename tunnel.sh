@@ -45,3 +45,47 @@ jobs # should show nothing now
 killall ssh # just in case
 
 # step 12: go back into system preferences and turn off SOCKS proxy
+
+# Last login: Wed Jul  8 15:42:48 on ttys000
+# 
+# [501][cthoyt@dhcp-892bcf3d:~]$ ssh -NqD 2001 fastssh.com-nucd4@fr.serverip.co -p 443
+# 
+# The authenticity of host '[fr.serverip.co]:443 ([195.154.7.110]:443)' can't be established.
+# RSA key fingerprint is ab:0f:cd:fb:0a:29:42:49:89:56:0f:d3:2a:e0:5c:bc.
+# Are you sure you want to continue connecting (yes/no)? yes
+# fastssh.com-nucd4@fr.serverip.co's password: 
+# *****
+
+# [1]+  Stopped                 ssh -NqD 2001 fastssh.com-nucd4@fr.serverip.co -p 443
+# [502][cthoyt@dhcp-892bcf3d:~]$ bg 1
+# [1]+ ssh -NqD 2001 fastssh.com-nucd4@fr.serverip.co -p 443 &
+# 
+# Now, go to system settings. SOCKS proxy. localhost and port 2001
+# 
+# [503][cthoyt@dhcp-892bcf3d:~]$ ssh -o ProxyCommand='nc -x localhost:2001 %h %p' cthoyt_cthoyt@ssh.phx.nearlyfreespeech.net
+# cthoyt_cthoyt@ssh.phx.nearlyfreespeech.net's password: 
+# *******
+# 
+# [cthoyt /home/public]$ ls
+# img		index.html	pinwheel.html
+# [cthoyt /home/public]$ ^C
+# [cthoyt /home/public]$ jobs
+# [cthoyt /home/public]$ exit
+# logout
+# Connection to ssh.phx.nearlyfreespeech.net closed.
+# [504][cthoyt@dhcp-892bcf3d:~]$ jobs
+# [1]+  Running                 ssh -NqD 2001 fastssh.com-nucd4@fr.serverip.co -p 443 &
+# [505][cthoyt@dhcp-892bcf3d:~]$ fg 1
+# ssh -NqD 2001 fastssh.com-nucd4@fr.serverip.co -p 443
+# ^C[506][cthoyt@dhcp-892bcf3d:~]$ jobs
+# [507][cthoyt@dhcp-892bcf3d:~]$ killall ssh
+# No matching processes belonging to you were found
+# [508][cthoyt@dhcp-892bcf3d:~]$ ls
+# Applications/ Documents/    Dropbox/      Library/      Music/        Public/
+# Desktop/      Downloads/    Google Drive/ Movies/       Pictures/     dev/
+# [509][cthoyt@dhcp-892bcf3d:~]$ lsa
+# -bash: lsa: command not found
+# [510][cthoyt@dhcp-892bcf3d:~]$ 
+
+
+
