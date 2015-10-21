@@ -16,6 +16,10 @@ brew install caskroom/cask/brew-cask
 brew install gcc
 
 ### TODO: edit /etc/paths algorithmically so /usr/local/bin is first so brew stuff plays nice
+# filter out /usr/local/bin
+# add it back how we want
+# cat /etc/paths | grep -v "^usr/local/bin$ > /etc/paths && "
+# echo '/usr/local/bin' | cat - todo.txt > temp && mv temp todo.txt
 
 brew doctor
 brew update
@@ -126,6 +130,6 @@ defaults write com.apple.screencapture location ~/Pictures/; killall SystemUISer
 ### TODO: place .bashrc and .bash_profile in ~
 
 #Extra
-#brew install pymol
-#pip3 install ipymol
-#pip3 install bioconductor
+brew install pymol
+pip3 install ipymol
+pip3 install bioconductor
