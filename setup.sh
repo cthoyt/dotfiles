@@ -7,55 +7,47 @@
 
 cd ~
 
+curl -O https://raw.githubusercontent.com/cthoyt/dotfiles/master/.bashrc
+curl -O https://raw.githubusercontent.com/cthoyt/dotfiles/master/.bash_profile
+
+resource .bash_profile
+
 # xcode command line tools
 xcode-select --install
 
 # brew and brew-cask (http://brew.sh/ and https://github.com/caskroom/homebrew-cask)
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 brew install caskroom/cask/brew-cask
-brew install gcc
-
-### TODO: edit /etc/paths algorithmically so /usr/local/bin is first so brew stuff plays nice
-# filter out /usr/local/bin
-# add it back how we want
-# cat /etc/paths | grep -v "^usr/local/bin$ > /etc/paths && "
-# echo '/usr/local/bin' | cat - todo.txt > temp && mv temp todo.txt
+brew install gcc # dependency for numpy and scipy 
 
 brew doctor
 brew update
 
-
-# bash
-### echo "/usr/local/bin/bash" >> /etc/shells
-### chsh -s /usr/local/bin/bash
-
 # mate
 brew cask install textmate
-### TODO link mate and fix export in .bash_profile
-### ln -s /Applications/TextMate.app/Contents/Resources/mate ~/bin/mate
 
 # git 
 brew install git
 brew cask install github-desktop
+curl -O https://raw.githubusercontent.com/cthoyt/dotfiles/master/.gitconfig
 git config --global user.name "Charlie Hoyt"
-git config --global user.email cthoyt@gmail.com
-git config --global core.excludesfile '~/.gitignore'
-git config --global core.excludesfile '~/.ipynb_checkpoints'
+git config --global user.email "cthoyt@gmail.com"
+git config --global core.excludesfile "~/.gitignore"
+git config --global core.excludesfile "~/.ipynb_checkpoints"
 git config --global core.editor "mate -wl1"
 
 # R
-brew cask install xquartz # r dependency
+brew cask install xquartz # dependency for r
 brew tap homebrew/science
 brew install R
 brew cask install rstudio
-brew cask install r-gui
 
-# PostgreSQL
-### TODO: add more setup
-brew install postgres
+# postgres
 brew cask install postgres
+brew install postgres
+brew cask install pgadmin3
 
-# Python
+# python
 brew install python3
 
 ## virtualenv (http://docs.python-guide.org/en/latest/dev/virtualenvs/)
@@ -70,9 +62,9 @@ brew install python3
 pip3 install numpy
 pip3 install pandas
 pip3 install scipy
-brew install freetype # matplotlib dependency
+brew install freetype # dependency for matplotlib 
 pip3 install matplotlib
-brew install zeromq # jupyter dependency
+brew install zeromq # dependency for jupyter
 pip3 install jupyter
 
 ## jupyter bash kernel
@@ -84,11 +76,8 @@ R -e "install.packages(c('rzmq','repr','IRkernel','IRdisplay'),repos = c('http:/
 IRkernel::installspec()"
 R -e "IRkernel::installspec()"
 
-# rdkit
-brew tap rdkit/rdkit
-brew install rdkit
-
 # GUI Applications
+brew cask install appcleaner
 brew cask install caffeine
 brew cask install dropbox
 brew cask install evernote
@@ -126,10 +115,11 @@ defaults write com.apple.screencapture location ~/Pictures/; killall SystemUISer
 ### TODO: set cronjob to brew update and brew cask update
 ### * 13 * * * brew 
 
+# Extra
+#brew install pymol
+#pip3 install ipymol
+#pip3 install biopython
 
-### TODO: place .bashrc and .bash_profile in ~
-
-#Extra
-brew install pymol
-pip3 install ipymol
-pip3 install bioconductor
+# rdkit
+#brew tap rdkit/rdkit
+#brew install rdkit
