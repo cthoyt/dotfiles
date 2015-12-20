@@ -24,3 +24,15 @@
   added = yellow
   changed = green
   untracked = cyan
+  
+[filter "lfs"]
+  required = true
+  clean = git-lfs clean %f
+  smudge = git-lfs smudge %f
+  
+[user]
+  name = Charles Tapley Hoyt
+  email = cthoyt@gmail.com
+  
+[core]
+  editor = mate -wl1

@@ -7,68 +7,84 @@
 
 cd ~
 
-curl -O https://raw.githubusercontent.com/cthoyt/dotfiles/master/.bashrc
-curl -O https://raw.githubusercontent.com/cthoyt/dotfiles/master/.bash_profile
+# dot files
+curl -0 https://raw.github.com/cthoyt/dotfiles/master/.bashrc
+curl -0 https://raw.github.com/cthoyt/dotfiles/master/.bash_profile
 
-resource .bash_profile
+source .bash_profile
 
 # xcode command line tools
 xcode-select --install
 
-# brew and brew-cask (http://brew.sh/ and https://github.com/caskroom/homebrew-cask)
+# brew http://brew.sh/
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-brew install caskroom/cask/brew-cask
-brew install gcc # dependency for numpy and scipy 
+brew update && brew cleanup && brew doctor
 
-brew doctor
-brew update
+brew install gcc
+
+# brew taps
+brew tap caskroom/cask
+brew tap homebrew/science
+brew tap rdkit/rdkit
+
+# brew-cask  https://github.com/caskroom/homebrew-cask
+brew install brew-cask 
+
+# GUI Applications
+brew cask install appcleaner caffeine dropbox evernote filezilla flux google-chrome google-drive google-photos-backup istat-menu perian shuttle skype transmission vlc vox vox-preference-pane zotero
+
+# bash
+# credit: http://johndjameson.com/blog/updating-your-shell-with-homebrew/
+brew install bash
+sudo -s
+echo /usr/local/bin/bash >> /etc/shells
+chsh -s /usr/local/bin/bash
 
 # mate
 brew cask install textmate
+### TODO link mate and fix export in .bash_profile
+### ln -s /Applications/TextMate.app/Contents/Resources/mate ~/bin/mate
 
 # git 
 brew install git
+curl -0 https://raw.github.com/cthoyt/dotfiles/master/.gitconfig # TODO is this the right thing to do?
+curl -0 https://raw.github.com/cthoyt/dotfiles/master/.gitignore
 brew cask install github-desktop
-curl -O https://raw.githubusercontent.com/cthoyt/dotfiles/master/.gitconfig
-git config --global user.name "Charlie Hoyt"
+git config --global user.name "Charles Tapley Hoyt"
 git config --global user.email "cthoyt@gmail.com"
-git config --global core.excludesfile "~/.gitignore"
-git config --global core.excludesfile "~/.ipynb_checkpoints"
 git config --global core.editor "mate -wl1"
 
-# R
-brew cask install xquartz # dependency for r
-brew tap homebrew/science
+# r
+brew cask install xquartz # xquartz: r dependency
 brew install R
 brew cask install rstudio
 
-# postgres
-brew cask install postgres
+# postgres (https://www.codefellows.org/blog/three-battle-tested-ways-to-install-postgresql#macosx, http://exponential.io/blog/2015/02/21/install-postgresql-on-mac-os-x-via-brew/)
 brew install postgres
+initdb /usr/local/var/postgres # NECESSARY?
+mkdir -p ~/Library/LaunchAgents
+ln -sfv /usr/local/opt/postgresql/*.plist ~/Library/LaunchAgents
+launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
+createdb $(whoami)
 brew cask install pgadmin3
+psql postgres -c 'CREATE EXTENSION "adminpack";'
 
 # python
 brew install python3
 
-## virtualenv (http://docs.python-guide.org/en/latest/dev/virtualenvs/)
-### TODO: reinvestigate using virtualenv. necessary?
-### pip install virtualenv virtualenvwrapper
-### export WORKON_HOME=~/.virtualenvs
-### source /usr/local/bin/virtualenvwrapper.sh
-### mkvirtualenv venv
-### workon venv
+# Virtual Environment (http://docs.python-guide.org/en/latest/dev/virtualenvs/)
+# pip3 install virtualenv virtualenvwrapper
+# export WORKON_HOME=~/.virtualenvs
+# source /usr/local/bin/virtualenvwrapper.sh
+# mkvirtualenv "$(whoami)_env"
+# workon "$(whoami)_env"
 
 ## scientific python stack
-pip3 install numpy
-pip3 install pandas
-pip3 install scipy
-brew install freetype # dependency for matplotlib 
-pip3 install matplotlib
-brew install zeromq # dependency for jupyter
-pip3 install jupyter
+brew install freetype # freetype: matplotlib dependency 
+brew install zeromq # zeromq: jupyter dependency
+pip3 install psycopg2 numpy pandas scipy matplotlib jupyter bash_kernel
 
 ## jupyter bash kernel
-pip3 install bash_kernel
 python3 -m bash_kernel.install
 
 ## jupyter r kernel
@@ -76,50 +92,20 @@ R -e "install.packages(c('rzmq','repr','IRkernel','IRdisplay'),repos = c('http:/
 IRkernel::installspec()"
 R -e "IRkernel::installspec()"
 
-# GUI Applications
-brew cask install appcleaner
-brew cask install caffeine
-brew cask install dropbox
-brew cask install evernote
-brew cask install filezilla
-brew cask install flux
-brew cask install google-chrome
-brew cask install google-drive
-brew cask install google-photos-backup
-brew cask install istat-menu
-brew cask install lastpass
-brew cask install perian
-brew cask install shuttle
-brew cask install skype
-brew cask install transmission
-brew cask install vlc
-brew cask install vox
-brew cask install vox-preference-pane
-brew cask install zotero
+# Science Extras
+brew install pymol
+pip3 install ipymol bioconductor
+brew install rdkit
 
 # java
 brew cask install java
 brew cask install eclipse-java
 
-# cleanup
-brew update
-brew cask update
-brew cleanup
-brew cask cleanup
+# ruby
+brew install ruby
 
-# Random
+brew doctor && brew update && brew cleanup && brew cask update && brew cask cleanup
 
-## change default screenshot location
-defaults write com.apple.screencapture location ~/Pictures/; killall SystemUIServer
-
-### TODO: set cronjob to brew update and brew cask update
-### * 13 * * * brew 
-
-# Extra
-#brew install pymol
-#pip3 install ipymol
-#pip3 install biopython
-
-# rdkit
-#brew tap rdkit/rdkit
-#brew install rdkit
+# cron
+curl -L https://raw.github.com/cthoyt/dotfiles/master/.cron >> ~/.cron
+crontab ~/.cron
