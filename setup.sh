@@ -5,18 +5,20 @@
 # * see https://gist.github.com/ChristopherA/d48946c72d75c4330374
 # * see https://github.com/mathiasbynens/dotfiles
 
-cd ~
-
-# dot files
-curl -0 https://raw.github.com/cthoyt/dotfiles/master/.bashrc
-curl -0 https://raw.github.com/cthoyt/dotfiles/master/.bash_profile
-
-source .bash_profile
-
 # xcode command line tools
 xcode-select --install
 
-# brew http://brew.sh/
+CTH_GITHUB="https://raw.github.com/cthoyt/dotfiles/master"
+
+cd ~
+
+# dot files
+curl -0 "$CTH_GITHUB/.bashrc"
+curl -0 "$CTH_GITHUB/.bash_profile"
+
+source .bash_profile
+
+# brew (http://brew.sh/)
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 brew update && brew cleanup && brew doctor
 
@@ -27,32 +29,28 @@ brew tap caskroom/cask
 brew tap homebrew/science
 brew tap rdkit/rdkit
 
-# brew-cask  https://github.com/caskroom/homebrew-cask
+# brew-cask (https://github.com/caskroom/homebrew-cask)
 brew install brew-cask 
 
 # GUI Applications
 brew cask install appcleaner caffeine dropbox evernote filezilla flux google-chrome google-drive google-photos-backup istat-menu perian shuttle skype transmission vlc vox vox-preference-pane zotero
 
-# bash
-# credit: http://johndjameson.com/blog/updating-your-shell-with-homebrew/
+# bash (http://johndjameson.com/blog/updating-your-shell-with-homebrew/)
 brew install bash
 sudo -s
 echo /usr/local/bin/bash >> /etc/shells
 chsh -s /usr/local/bin/bash
 
 # mate
+# TODO link mate and fix export in .bash_profile
 brew cask install textmate
-### TODO link mate and fix export in .bash_profile
-### ln -s /Applications/TextMate.app/Contents/Resources/mate ~/bin/mate
+#ln -s /Applications/TextMate.app/Contents/Resources/mate ~/bin/mate
 
 # git 
 brew install git
-curl -0 https://raw.github.com/cthoyt/dotfiles/master/.gitconfig # TODO is this the right thing to do?
-curl -0 https://raw.github.com/cthoyt/dotfiles/master/.gitignore
+curl -0 "$CTH_GITHUB/.gitconfig" # TODO is this the right thing to do?
+curl -0 "$CTH_GITHUB//.gitignore"
 brew cask install github-desktop
-git config --global user.name "Charles Tapley Hoyt"
-git config --global user.email "cthoyt@gmail.com"
-git config --global core.editor "mate -wl1"
 
 # r
 brew cask install xquartz # xquartz: r dependency
@@ -61,7 +59,7 @@ brew cask install rstudio
 
 # postgres (https://www.codefellows.org/blog/three-battle-tested-ways-to-install-postgresql#macosx, http://exponential.io/blog/2015/02/21/install-postgresql-on-mac-os-x-via-brew/)
 brew install postgres
-initdb /usr/local/var/postgres # NECESSARY?
+initdb /usr/local/var/postgres # TODO investigate if necessary
 mkdir -p ~/Library/LaunchAgents
 ln -sfv /usr/local/opt/postgresql/*.plist ~/Library/LaunchAgents
 launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
@@ -72,7 +70,7 @@ psql postgres -c 'CREATE EXTENSION "adminpack";'
 # python
 brew install python3
 
-# Virtual Environment (http://docs.python-guide.org/en/latest/dev/virtualenvs/)
+# virtual environment (http://docs.python-guide.org/en/latest/dev/virtualenvs/)
 # pip3 install virtualenv virtualenvwrapper
 # export WORKON_HOME=~/.virtualenvs
 # source /usr/local/bin/virtualenvwrapper.sh
@@ -82,30 +80,39 @@ brew install python3
 ## scientific python stack
 brew install freetype # freetype: matplotlib dependency 
 brew install zeromq # zeromq: jupyter dependency
-pip3 install psycopg2 numpy pandas scipy matplotlib jupyter bash_kernel
+pip3 install psycopg2 numpy pandas scipy matplotlib jupyter
 
-## jupyter bash kernel
+## jupyter bash kernel (https://github.com/takluyver/bash_kernel)
+pip3 install bash_kernel
 python3 -m bash_kernel.install
 
-## jupyter r kernel
+## jupyter r kernel (http://irkernel.github.io/)
 R -e "install.packages(c('rzmq','repr','IRkernel','IRdisplay'),repos = c('http://irkernel.github.io/', 'http://cran.us.r-project.org'))
 IRkernel::installspec()"
-R -e "IRkernel::installspec()"
+#R -e "IRkernel::installspec()"
 
 # Science Extras
 brew install pymol
 pip3 install ipymol bioconductor
-brew install rdkit
+
+# RDKit (http://www.rdkit.org/docs/Install.html)
+brew install rdkit --with-postgresql --with-python3
+# FIXME psql postgres -c 'CREATE EXTENSION "rdkit"'
 
 # java
 brew cask install java
 brew cask install eclipse-java
 
+# TeX
+brew cask install mactex
+brew install pandoc
+
 # ruby
 brew install ruby
+gem install pg
 
-brew doctor && brew update && brew cleanup && brew cask update && brew cask cleanup
+update-brew
 
 # cron
-curl -L https://raw.github.com/cthoyt/dotfiles/master/.cron >> ~/.cron
+curl -0 "$CTH_GITHUB/.cron"
 crontab ~/.cron
