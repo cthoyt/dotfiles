@@ -22,12 +22,21 @@ source .bash_profile
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 brew update && brew cleanup && brew doctor
 
-brew install gcc
-
 # brew taps
 brew tap caskroom/cask
 brew tap homebrew/science
 brew tap rdkit/rdkit
+
+# git 
+brew install git
+curl -0 "$CTH_GITHUB/.gitconfig"
+curl -0 "$CTH_GITHUB/.gitignore_global"
+git config --global core.excludesfile '~/.gitignore_global' #http://stackoverflow.com/questions/7335420/global-git-ignore
+git config --global user.name $(read -p 'Name for Git:')
+git config --global user.email $(read -p 'Email for Git:')
+brew cask install github-desktop
+
+brew install gcc
 
 # brew-cask (https://github.com/caskroom/homebrew-cask)
 brew install brew-cask 
@@ -45,15 +54,6 @@ chsh -s /usr/local/bin/bash
 # TODO link mate and fix export in .bash_profile
 brew cask install textmate
 #ln -s /Applications/TextMate.app/Contents/Resources/mate ~/bin/mate
-
-# git 
-brew install git
-curl -0 "$CTH_GITHUB/.gitconfig"
-curl -0 "$CTH_GITHUB/.gitignore_global"
-git config --global core.excludesfile '~/.gitignore_global' #http://stackoverflow.com/questions/7335420/global-git-ignore
-git config --global user.name $(read -p 'Name for Git:')
-git config --global user.email $(read -p 'Email for Git:')
-brew cask install github-desktop
 
 # r
 brew cask install xquartz # xquartz: r dependency
