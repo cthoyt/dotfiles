@@ -109,7 +109,8 @@ brew install pandoc
 
 # ruby
 brew install ruby
-gem install pg
+gem install sequel
+gem install ffi-rzmq iruby
 
 update-brew
 
