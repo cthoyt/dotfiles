@@ -48,8 +48,11 @@ brew cask install textmate
 
 # git 
 brew install git
-curl -0 "$CTH_GITHUB/.gitconfig" # TODO is this the right thing to do?
-curl -0 "$CTH_GITHUB//.gitignore"
+curl -0 "$CTH_GITHUB/.gitconfig"
+curl -0 "$CTH_GITHUB/.gitignore_global"
+git config --global core.excludesfile '~/.gitignore_global' #http://stackoverflow.com/questions/7335420/global-git-ignore
+git config --global user.name $(read -p 'Name for Git:')
+git config --global user.email $(read -p 'Email for Git:')
 brew cask install github-desktop
 
 # r
