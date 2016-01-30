@@ -53,7 +53,7 @@ chsh -s /usr/local/bin/bash
 # mate
 # TODO link mate and fix export in .bash_profile
 brew cask install textmate
-#ln -s /Applications/TextMate.app/Contents/Resources/mate ~/bin/mate
+#ln -s /Applications/TextMate.app/Contents/Resources/mate /usr/local/bin/mate
 
 # r
 brew cask install xquartz # xquartz: r dependency
@@ -113,7 +113,10 @@ brew install pandoc
 # ruby
 brew install ruby
 gem install sequel
-gem install ffi-rzmq iruby
+gem install ffi-rzmq iruby # iruby notebook with jupyter
+
+# node.js (maybe one day) (http://shapeshed.com/setting-up-nodejs-and-npm-on-mac-osx/)
+# brew install node
 
 update-brew
 
