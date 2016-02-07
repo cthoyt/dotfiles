@@ -19,9 +19,11 @@
 
 ## Make It Happen
 
-### 1. Do this
+### 1. Download and Run `setup.sh`
 
-- just run (maybe as sudo) `curl -L https://raw.github.com/cthoyt/dotfiles/master/setup.sh | sh`
+- `curl -L https://raw.github.com/cthoyt/dotfiles/master/setup.sh | sh`
+- there's a bit of interactivity
+- no `virtualenv` yet
 
 ### 2. Something about SSH Keys
 
@@ -36,4 +38,8 @@
 
 Thanks to everyone who inspired me, and from whom I shamelessly stole ideas.
 
-- @mdo [mdo/config](https://github.com/mdo/config)
+| Name | Source | 
+| --- | --- | 
+| @mdo |  [mdo/config](https://github.com/mdo/config) |
+| @mathiasbynes | [mathiasbynens/dotfiles](https://github.com/mathiasbynens/dotfiles) |
+| @CristpherA | [ChristopherA/MacOSXYosementDevelopmentInstall.md](https://gist.github.com/ChristopherA/d48946c72d75c4330374) |
