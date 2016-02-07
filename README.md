@@ -7,7 +7,7 @@
 | File | Description |
 | --- | --- |
 | `public_setup.sh` | automatically downloads everything and puts it all in the right place and sets up everything | 
-| `.bash_profile` | sources `.bashrc` because I don't know the difference between interactive and non-interactive consoles |
+| `.bash_profile` | sources `.bashrc` because I don't know the [difference](http://stackoverflow.com/questions/415403/whats-the-difference-between-bashrc-bash-profile-and-environment) between interactive and non-interactive consoles |
 | `.bashrc` | has stuff to make my bash cool |
 | `osx.sh` | has stuff to set all of my OSX settings |
 | `.gitconfig` | stuff |
