@@ -28,7 +28,7 @@ elif [ "$(uname)" = 'Darwin' ] ; then
     alias ls='ls -FG' #default color + directory flags
 fi
 
-alias la='ls -al'
+alias la='ls -alh'
 alias ..="cd .."
 alias ...="cd ../.."
 alias cool="echo cool"
@@ -74,3 +74,24 @@ function openapp {
 		echo "not found"
 	fi
 }
+
+# startables and stoppables
+
+# postgres (currently running automatically in background)
+export PGDATA='/usr/local/var/postgres'
+export PGHOST=localhost
+alias start-pg='pg_ctl -l $PGDATA/server.log start'
+alias stop-pg='pg_ctl stop -m fast'
+alias show-pg-status='pg_ctl status'
+alias restart-pg='pg_ctl reload'
+
+# mysql (http://stackoverflow.com/questions/11091414/how-to-stop-mysqld)
+alias start-mysql="mysql.server start"
+alias stop-mysql="mysqladmin -u root shutdown"
+
+# neo4j
+alias start-neo4j="neo4j start"
+alias stop-neo4k="neo4j stop"
+
+# find
+alias find-stoppables="ps aux | egrep 'sql|neo4j' --color"
