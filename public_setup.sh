@@ -60,9 +60,12 @@ brew cask install xquartz # xquartz: r dependency
 brew install R
 brew cask install rstudio
 
-# postgres (https://www.codefellows.org/blog/three-battle-tested-ways-to-install-postgresql#macosx, http://exponential.io/blog/2015/02/21/install-postgresql-on-mac-os-x-via-brew/)
+# postgres 
+# https://www.codefellows.org/blog/three-battle-tested-ways-to-install-postgresql#macosx
+# http://exponential.io/blog/2015/02/21/install-postgresql-on-mac-os-x-via-brew/
+# upgrading: https://kkob.us/2016/01/09/homebrew-and-postgresql-9-5/
 brew install postgres
-initdb /usr/local/var/postgres # TODO investigate if necessary
+initdb /usr/local/var/postgres
 mkdir -p ~/Library/LaunchAgents
 ln -sfv /usr/local/opt/postgresql/*.plist ~/Library/LaunchAgents
 launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
