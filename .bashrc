@@ -53,8 +53,10 @@ function update-brew {
 #source /usr/local/bin/virtualenvwrapper.sh
 
 function update-python {
+	echo "Checking setuptools and pip"
 	pip3 install -U setuptools pip
-	pip3 freeze --local | grep -v '^\-e'  | cut -d = -f 1 | xargs -n1 pip3 install -U
+	echo "Checking for outdated packages"
+	pip3 list -o | cut -d " " -f 1 | xargs -n1 pip3 install -U
 }
 
 #TODO evaluate rbenv (https://github.com/rbenv/rbenv)
