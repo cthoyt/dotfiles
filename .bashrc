@@ -7,7 +7,6 @@ export LANG=en_US.UTF-8
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 export RDBASE="/usr/local/share/RDKit"
 export JAVA_HOME="`/usr/libexec/java_home -v 1.8`"
-#export SCHRODINGER='/opt/schrodinger/suites2015-2'
 
 # customize bash prompt (http://bneijt.nl/blog/post/add-a-timestamp-to-your-bash-prompt/)
 export PS1="$(tput setaf 5)[\!] $(tput setaf 1)[\A] $(tput setaf 2)[\u@\h:$(tput setaf 3)\w$(tput setaf 2)]$(tput setaf 4)\n\$ $(tput sgr0)"
@@ -15,7 +14,7 @@ export PS2="> "
 
 function edit-bashrc {
 	mate -w ~/.bashrc
-	cp ~/.bashrc ~/dev/dotfiles/.bashrc
+	cp ~/.bashrc ~/Dropbox/dev/dotfiles/.bashrc
 	source ~/.bashrc
 	echo "nailed it"
 }
@@ -32,8 +31,8 @@ alias la='ls -alh'
 alias ..="cd .."
 alias ...="cd ../.."
 alias cool="echo cool"
-alias pyserver="cd ~/dev/$(whoami).github.io; python -m SimpleHTTPServer"
-alias jn="cd ~/dev/notebooks; jupyter notebook"
+alias pyserver="cd ~/Dropbox/dev/$(whoami).github.io; python -m SimpleHTTPServer"
+alias jn="jupyter notebook --notebook-dir ~/Dropbox/dev/notebooks"
 
 alias showallfiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
 alias hideallfiles='defaults write com.apple.finder AppleShowAllFiles NO;  killall Finder /System/Library/CoreServices/Finder.app'
@@ -82,10 +81,10 @@ function openapp {
 # postgres (currently running automatically in background)
 export PGDATA='/usr/local/var/postgres'
 export PGHOST=localhost
-alias start-pg='pg_ctl -l $PGDATA/server.log start'
-alias stop-pg='pg_ctl stop -m fast'
-alias show-pg-status='pg_ctl status'
-alias restart-pg='pg_ctl reload'
+alias start-postgres='pg_ctl -l $PGDATA/server.log start'
+alias stop-postgres='pg_ctl stop -m fast'
+alias show-postgres-status='pg_ctl status'
+alias restart-postgres='pg_ctl reload'
 
 # mysql (http://stackoverflow.com/questions/11091414/how-to-stop-mysqld)
 alias start-mysql="mysql.server start"
@@ -93,7 +92,7 @@ alias stop-mysql="mysqladmin -u root shutdown"
 
 # neo4j
 alias start-neo4j="neo4j start"
-alias stop-neo4k="neo4j stop"
+alias stop-neo4j="neo4j stop"
 
 # find
 alias find-stoppables="ps aux | egrep 'sql|neo4j' --color"
