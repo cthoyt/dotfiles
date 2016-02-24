@@ -30,31 +30,9 @@
 - [Generate new SSH key](https://help.github.com/articles/generating-ssh-keys/)
 - [Generate an access token](https://help.github.com/articles/creating-an-access-token-for-command-line-use/)
 
-- add stuff to ~/.ssh/config 
+### 3. Profit
 
-example:
-```
-Host github-username
-	Hostname ssh.github.com
-	IdentityFile ~/.ssh/my_private_rsa
-	IdentitiesOnly yes
-	User git
-```
-
-### TextMate
-Open up textmate, go to the preferences and make sure it copies the shell script overxs
-
-### 3. Install Licensed Software
-
-#### PyCharm
-
-- Log in at https://account.jetbrains.com/login
-- Download Activation Key for PyCharm
-
-### 4. Eclipse
-
-#### Maven
-http://stackoverflow.com/questions/8620127/maven-in-eclipse-step-by-step-installation
+- yeah.
 
 ## Credits
 

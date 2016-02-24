@@ -42,10 +42,7 @@ brew install gcc
 brew install brew-cask 
 
 # GUI Applications
-brew cask install appcleaner caffeine dropbox evernote filezilla flux  
-brew cask install google-photos-backup music-manager google-chrome google-drive
-brew cask install istat-menu perian shuttle skype transmission vlc vox 
-brew cask install vox-preference-pane mendeley-desktop
+brew cask install appcleaner caffeine dropbox evernote filezilla flux google-chrome google-drive google-photos-backup istat-menu perian shuttle skype transmission vlc vox vox-preference-pane zotero
 
 # bash (http://johndjameson.com/blog/updating-your-shell-with-homebrew/)
 brew install bash
@@ -123,12 +120,6 @@ gem install ffi-rzmq iruby # iruby notebook with jupyter
 
 # node.js (maybe one day) (http://shapeshed.com/setting-up-nodejs-and-npm-on-mac-osx/)
 # brew install node
-
-# MonetDB (https://www.monetdb.org/Documentation/UserGuide/Tutorial)
-brew install monetdb --with-java --with-ruby
-
-# Neo4J
-brew install neo4j
 
 update-brew
 
