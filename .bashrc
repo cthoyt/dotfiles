@@ -23,11 +23,15 @@ alias qq='exit'
 
 if [ "$(uname)" = 'Linux' ] ; then
     alias ls='ls --color -F'
+	alias la='ls -alh --color'
 elif [ "$(uname)" = 'Darwin' ] ; then
     alias ls='ls -FG' #default color + directory flags
+	alias la='ls -alh'
+elif [[ "$(uname)" == "CYGWIN"* ]] ; then
+	alias ls='ls -F --color'
+	alias la='ls -alh --color'
 fi
 
-alias la='ls -alh'
 alias ..="cd .."
 alias ...="cd ../.."
 alias cool="echo cool"
@@ -64,6 +68,12 @@ function update-ruby {
 	gem update --system
 	gem update 
 	gem cleanup
+}
+
+function update-all {
+	update-brew
+	update-python
+	update-ruby
 }
 
 function openapp {

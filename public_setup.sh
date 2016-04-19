@@ -31,7 +31,7 @@ brew tap rdkit/rdkit
 brew install git
 curl -0 "$CTH_GITHUB/.gitconfig"
 curl -0 "$CTH_GITHUB/.gitignore_global"
-git config --global core.excludesfile '~/.gitignore_global' #http://stackoverflow.com/questions/7335420/global-git-ignore
+git config --global core.excludesfile '~/.gitignore_global' # http://stackoverflow.com/questions/7335420/global-git-ignore
 git config --global user.name $(read -p 'Name for Git:')
 git config --global user.email $(read -p 'Email for Git:')
 brew cask install github-desktop
@@ -69,9 +69,12 @@ brew cask install rstudio
 # upgrading: https://kkob.us/2016/01/09/homebrew-and-postgresql-9-5/
 brew install postgres
 initdb /usr/local/var/postgres
+
+# automatically start database on system start
 mkdir -p ~/Library/LaunchAgents
 ln -sfv /usr/local/opt/postgresql/*.plist ~/Library/LaunchAgents
 launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
+
 createdb $(whoami)
 brew cask install pgadmin3
 psql postgres -c 'CREATE EXTENSION "adminpack";'
@@ -80,7 +83,7 @@ psql postgres -c 'CREATE EXTENSION "adminpack";'
 brew install python3
 
 # virtual environment (http://docs.python-guide.org/en/latest/dev/virtualenvs/)
-# pip3 install virtualenv virtualenvwrapper
+pip3 install virtualenv virtualenvwrapper
 # export WORKON_HOME=~/.virtualenvs
 # source /usr/local/bin/virtualenvwrapper.sh
 # mkvirtualenv "$(whoami)_env"
@@ -96,13 +99,13 @@ pip3 install bash_kernel
 python3 -m bash_kernel.install
 
 ## jupyter r kernel (http://irkernel.github.io/)
-R -e "install.packages(c('rzmq','repr','IRkernel','IRdisplay'),repos = c('http://irkernel.github.io/', 'http://cran.us.r-project.org'))
-IRkernel::installspec()"
-#R -e "IRkernel::installspec()"
+R -e "install.packages(c('rzmq','repr','IRkernel','IRdisplay'),repos = c('http://irkernel.github.io/', 'http://cran.us.r-project.org')); 
+Rkernel::installspec()"
 
 # Science Extras
 brew install pymol
-pip3 install ipymol bioconductor
+pip3 install ipymol 
+pip3 install bioconductor
 
 # RDKit (http://www.rdkit.org/docs/Install.html)
 brew install rdkit --with-postgresql --with-python3
@@ -130,8 +133,13 @@ brew install monetdb --with-java --with-ruby
 # Neo4J
 brew install neo4j
 
+# MySQL
+brew install mysql
+
 update-brew
 
 # cron
-curl -0 "$CTH_GITHUB/.cron"
-crontab ~/.cron
+#curl -0 "$CTH_GITHUB/.cron"
+#crontab ~/.cron
+
+unset CTH_GITHUB
