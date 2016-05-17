@@ -37,6 +37,7 @@ git config --global user.email $(read -p 'Email for Git:')
 brew cask install github-desktop
 
 brew install gcc
+brew install tree
 
 # brew-cask (https://github.com/caskroom/homebrew-cask)
 brew install brew-cask 
@@ -101,6 +102,7 @@ python3 -m bash_kernel.install
 ## jupyter r kernel (http://irkernel.github.io/)
 R -e "install.packages(c('rzmq','repr','IRkernel','IRdisplay'),repos = c('http://irkernel.github.io/', 'http://cran.us.r-project.org')); 
 Rkernel::installspec()"
+brew install inkscape # for jupyter notebook to latex
 
 # Science Extras
 brew install pymol
@@ -128,13 +130,14 @@ gem install ffi-rzmq iruby # iruby notebook with jupyter
 # brew install node
 
 # MonetDB (https://www.monetdb.org/Documentation/UserGuide/Tutorial)
-brew install monetdb --with-java --with-ruby
+# brew install monetdb --with-java --with-ruby
 
 # Neo4J
 brew install neo4j
 
 # MySQL
 brew install mysql
+mysql_install_db --verbose --user=`whoami` --basedir="$(brew --prefix mysql)" --datadir=/usr/local/var/mysql --tmpdir=/tmp
 
 update-brew
 

@@ -36,7 +36,17 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias cool="echo cool"
 alias pyserver="cd ~/Dropbox/dev/$(whoami).github.io; python -m SimpleHTTPServer"
-alias jn="jupyter notebook --notebook-dir ~/Dropbox/dev/notebooks"
+alias tree="tree -C"
+
+function jn {
+	cd ~/Dropbox/dev/notebooks
+	jupyter notebook
+}
+
+function jnd {
+	cd ~/dev
+	jupyter notebook
+}
 
 alias showallfiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
 alias hideallfiles='defaults write com.apple.finder AppleShowAllFiles NO;  killall Finder /System/Library/CoreServices/Finder.app'
@@ -51,18 +61,25 @@ function update-brew {
 	brew cask cleanup
 }
 
-#TODO evaluate virtualenv
-#export WORKON_HOME=~/.virtualenvs
-#source /usr/local/bin/virtualenvwrapper.sh
+# TODO evaluate virtualenv
+# export WORKON_HOME=~/.virtualenvs
+# source /usr/local/bin/virtualenvwrapper.sh
 
 function update-python {
 	echo "Checking setuptools and pip"
 	pip3 install -U setuptools pip
 	echo "Checking for outdated packages"
-	pip3 list -o | cut -d " " -f 1 | xargs -n1 pip3 install -U
+	pip3 list -o | cut -d " " -f 1 | xargs -n 1 pip3 install -U
 }
 
-#TODO evaluate rbenv (https://github.com/rbenv/rbenv)
+function update-python2 {
+	echo "Checking setuptools and pip"
+	pip2 install -U setuptools pip
+	echo "Checking for outdated packages"
+	pip2 list -o | cut -d " " -f 1 | xargs -n 1 pip2 install -U
+}
+
+# TODO evaluate rbenv (https://github.com/rbenv/rbenv)
 
 function update-ruby {
 	gem update --system
@@ -77,13 +94,17 @@ function update-all {
 }
 
 function openapp {
-	if [ -f "/Users/$(whoami)/Applications/$1" ] ; then
-		open -a "/Users/$(whoami)/Applications/$1"
-	elif [ -f "/Applications/$1" ] ; then
-		open -a "/Applications/$1"
+	if [ -e "/Users/$(whoami)/Applications/$1.app" ] ; then
+		open -a "/Users/$(whoami)/Applications/$1.app"
+	elif [ -e "/Applications/$1.app" ] ; then
+		open -a "/Applications/$1.app"
 	else
 		echo "not found"
 	fi
+}
+
+function gettodos {
+	cat $1 | egrep "\[(t|todo|t:)\]"
 }
 
 # startables and stoppables
@@ -91,6 +112,7 @@ function openapp {
 # postgres (currently running automatically in background)
 export PGDATA='/usr/local/var/postgres'
 export PGHOST=localhost
+
 alias start-postgres='pg_ctl -l $PGDATA/server.log start'
 alias stop-postgres='pg_ctl stop -m fast'
 alias show-postgres-status='pg_ctl status'
