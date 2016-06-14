@@ -100,8 +100,11 @@ pip3 install bash_kernel
 python3 -m bash_kernel.install
 
 ## jupyter r kernel (http://irkernel.github.io/)
-R -e "install.packages(c('rzmq','repr','IRkernel','IRdisplay'),repos = c('http://irkernel.github.io/', 'http://cran.us.r-project.org')); 
-Rkernel::installspec()"
+R -e "install.packages(c('repr', 'pbdZMQ', 'devtools'),repos=c('http://irkernel.github.io/', 'http://cran.us.r-project.org'))" 
+R -e "devtools::install_github('IRkernel/IRdisplay')"
+R -e "devtools::install_github('IRkernel/IRkernel')"
+R -e "IRkernel::installspec()"
+
 brew install inkscape # for jupyter notebook to latex
 
 # Science Extras

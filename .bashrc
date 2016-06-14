@@ -20,6 +20,16 @@ function edit-bashrc {
 }
 alias edit-sshconfig='mate  ~/.ssh/config'
 alias qq='exit'
+alias makef='time make -f'
+
+function makea {
+	# make all make files in a directory
+	for i in *.makefile; do
+		echo "$(tput setaf 5)make$(tput sgr0) -f $i"
+		make -f $i
+		echo
+	done
+}
 
 if [ "$(uname)" = 'Linux' ] ; then
     alias ls='ls --color -F'
@@ -88,8 +98,11 @@ function update-ruby {
 }
 
 function update-all {
+	echo "$(tput setaf 5)Updating Brew$(tput sgr0)"	
 	update-brew
+	echo "$(tput setaf 5)Updating Python 3$(tput sgr0)"
 	update-python
+	echo "$(tput setaf 5)Updating Ruby$(tput sgr0)"
 	update-ruby
 }
 
