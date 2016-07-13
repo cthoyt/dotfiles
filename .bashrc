@@ -12,12 +12,25 @@ export JAVA_HOME="`/usr/libexec/java_home -v 1.8`"
 export PS1="$(tput setaf 5)[\!] $(tput setaf 1)[\A] $(tput setaf 2)[\u@\h:$(tput setaf 3)\w$(tput setaf 2)]$(tput setaf 4)\n\$ $(tput sgr0)"
 export PS2="> "
 
+export dotfiles=~/Dropbox/dev/dotfiles/
+
 function edit-bashrc {
 	mate -w ~/.bashrc
-	cp ~/.bashrc ~/Dropbox/dev/dotfiles/.bashrc
+	cp ~/.bashrc $dotfiles/.bashrc
 	source ~/.bashrc
 	echo "nailed it"
 }
+
+function edit-rrc {
+	mate -w ~/.Rprofile
+	cp ~/.Rprofile ~/Dropbox/dev/dotfiles/.bashrc
+	echo nailed it
+}
+
+function export-r-packages {
+	r -e "write.table(installed.packages(priority='NA'), '$dotfiles/r_packages.csv', sep=',')"
+}
+
 alias edit-sshconfig='mate  ~/.ssh/config'
 alias qq='exit'
 alias makef='time make -f'
@@ -118,6 +131,13 @@ function openapp {
 
 function gettodos {
 	cat $1 | egrep "\[(t|todo|t:)\]"
+}
+
+function reinstall-irkernel {
+	r -e "install.packages(c('repr', 'pbdZMQ', 'devtools'), repos='http://cran.us.r-project.org')"
+	r -e "devtools::install_github('IRkernel/IRdisplay')"
+	r -e "devtools::install_github('IRkernel/IRkernel')"
+	r -e "IRkernel::installspec()"
 }
 
 # startables and stoppables
