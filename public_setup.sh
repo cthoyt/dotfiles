@@ -32,8 +32,9 @@ brew install git
 curl -0 "$CTH_GITHUB/.gitconfig"
 curl -0 "$CTH_GITHUB/.gitignore_global"
 git config --global core.excludesfile '~/.gitignore_global' # http://stackoverflow.com/questions/7335420/global-git-ignore
-git config --global user.name $(read -p 'Name for Git:')
-git config --global user.email $(read -p 'Email for Git:')
+git config --global core.editor "mate -wl1"
+git config --global user.name "Charles Tapley Hoyt"
+git config --global user.email "cthoyt@gmail.com"
 brew cask install github-desktop
 
 brew install gcc
@@ -43,10 +44,12 @@ brew install tree
 brew install brew-cask 
 
 # GUI Applications
+
 brew cask install appcleaner caffeine dropbox evernote filezilla flux  
 brew cask install google-photos-backup music-manager google-chrome google-drive
 brew cask install istat-menu perian shuttle skype transmission vlc vox 
 brew cask install vox-preference-pane mendeley-desktop
+brew cask install textmate
 
 # bash (http://johndjameson.com/blog/updating-your-shell-with-homebrew/)
 brew install bash
@@ -54,15 +57,9 @@ sudo -s
 echo /usr/local/bin/bash >> /etc/shells
 chsh -s /usr/local/bin/bash
 
-# mate
-# TODO link mate and fix export in .bash_profile
-brew cask install textmate
-#ln -s /Applications/TextMate.app/Contents/Resources/mate /usr/local/bin/mate
-
 # r
 brew cask install xquartz # xquartz: r dependency
 brew install R
-brew cask install rstudio
 
 # postgres 
 # https://www.codefellows.org/blog/three-battle-tested-ways-to-install-postgresql#macosx
@@ -100,21 +97,19 @@ pip3 install bash_kernel
 python3 -m bash_kernel.install
 
 ## jupyter r kernel (http://irkernel.github.io/)
-R -e "install.packages(c('repr', 'pbdZMQ', 'devtools'),repos=c('http://irkernel.github.io/', 'http://cran.us.r-project.org'))" 
-R -e "devtools::install_github('IRkernel/IRdisplay')"
-R -e "devtools::install_github('IRkernel/IRkernel')"
-R -e "IRkernel::installspec()"
+# see .bashrc for implementation. This needs to be run each time R is updated...
+reinstall-irkernel
 
-brew install inkscape # for jupyter notebook to latex
+brew install inkscape # for jupyter notebook irkernel to latex 
 
 # Science Extras
-brew install pymol
-pip3 install ipymol 
-pip3 install bioconductor
+# brew install pymol
+# pip3 install ipymol 
+# pip3 install bioconductor
 
 # RDKit (http://www.rdkit.org/docs/Install.html)
 brew install rdkit --with-postgresql --with-python3
-# FIXME psql postgres -c 'CREATE EXTENSION "rdkit"'
+psql postgres -c 'CREATE EXTENSION "rdkit"'
 
 # java
 brew cask install java

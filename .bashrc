@@ -12,7 +12,7 @@ export JAVA_HOME="`/usr/libexec/java_home -v 1.8`"
 export PS1="$(tput setaf 5)[\!] $(tput setaf 1)[\A] $(tput setaf 2)[\u@\h:$(tput setaf 3)\w$(tput setaf 2)]$(tput setaf 4)\n\$ $(tput sgr0)"
 export PS2="> "
 
-export dotfiles=~/Dropbox/dev/dotfiles/
+export dotfiles=~/Dropbox/dev/dotfiles
 
 function edit-bashrc {
 	mate -w ~/.bashrc
@@ -23,17 +23,25 @@ function edit-bashrc {
 
 function edit-rrc {
 	mate -w ~/.Rprofile
-	cp ~/.Rprofile ~/Dropbox/dev/dotfiles/.bashrc
+	cp ~/.Rprofile $dotfiles/.bashrc
 	echo nailed it
+}
+
+function save-rcs {
+	for i in .bashrc .Rprofile; do
+		echo "cp ~/$i $dotfiles/$i"
+		cp ~/$i $dotfiles/$i
+	done
 }
 
 function export-r-packages {
 	r -e "write.table(installed.packages(priority='NA'), '$dotfiles/r_packages.csv', sep=',')"
 }
 
-alias edit-sshconfig='mate  ~/.ssh/config'
+alias edit-sshconfig='mate ~/.ssh/config'
 alias qq='exit'
 alias makef='time make -f'
+alias cd-jupyter-templates='cd /usr/local/lib/python3.5/site-packages/nbconvert/templates/latex'
 
 function makea {
 	# make all make files in a directory
@@ -61,15 +69,8 @@ alias cool="echo cool"
 alias pyserver="cd ~/Dropbox/dev/$(whoami).github.io; python -m SimpleHTTPServer"
 alias tree="tree -C"
 
-function jn {
-	cd ~/Dropbox/dev/notebooks
-	jupyter notebook
-}
-
-function jnd {
-	cd ~/dev
-	jupyter notebook
-}
+alias jn="jupyter notebook --notebook-dir ~/Dropbox/dev/notebooks"
+alias jnd="jupyter notebook --notebook-dir ~/dev"
 
 alias showallfiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
 alias hideallfiles='defaults write com.apple.finder AppleShowAllFiles NO;  killall Finder /System/Library/CoreServices/Finder.app'
@@ -90,14 +91,14 @@ function update-brew {
 
 function update-python {
 	echo "Checking setuptools and pip"
-	pip3 install -U setuptools pip
+	pip3 install -U setuptools pip wheel
 	echo "Checking for outdated packages"
 	pip3 list -o | cut -d " " -f 1 | xargs -n 1 pip3 install -U
 }
 
 function update-python2 {
 	echo "Checking setuptools and pip"
-	pip2 install -U setuptools pip
+	pip2 install -U setuptools pip wheel
 	echo "Checking for outdated packages"
 	pip2 list -o | cut -d " " -f 1 | xargs -n 1 pip2 install -U
 }
@@ -113,8 +114,10 @@ function update-ruby {
 function update-all {
 	echo "$(tput setaf 5)Updating Brew$(tput sgr0)"	
 	update-brew
+	echo
 	echo "$(tput setaf 5)Updating Python 3$(tput sgr0)"
 	update-python
+	echo
 	echo "$(tput setaf 5)Updating Ruby$(tput sgr0)"
 	update-ruby
 }
