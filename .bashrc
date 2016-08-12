@@ -34,8 +34,17 @@ function save-rcs {
 	done
 }
 
+function r-install {
+	echo "install.packages('$1')" >> ~/Dropbox/dev/dotfiles/install_packages.R
+	r -e "install.packages('$1')"
+}
+
 function export-r-packages {
 	r -e "write.table(installed.packages(priority='NA'), '$dotfiles/r_packages.csv', sep=',')"
+}
+
+function jnbc {
+	jupyter nbconvert "$1" --to pdf --template no_code.tplx --output-dir=~/Downloads
 }
 
 alias edit-sshconfig='mate ~/.ssh/config'

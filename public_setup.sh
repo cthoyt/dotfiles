@@ -51,6 +51,10 @@ brew cask install istat-menu perian shuttle skype transmission vlc vox
 brew cask install vox-preference-pane mendeley-desktop
 brew cask install textmate
 
+# Quicklook Plugins
+
+brew cask install jupyter-notebook-ql qlstephen quicklook-csv quicklook-json
+
 # bash (http://johndjameson.com/blog/updating-your-shell-with-homebrew/)
 brew install bash
 sudo -s
@@ -101,6 +105,9 @@ python3 -m bash_kernel.install
 reinstall-irkernel
 
 brew install inkscape # for jupyter notebook irkernel to latex 
+
+# enable widgets (https://github.com/ipython/ipywidgets)
+jupyter nbextension enable --py widgetsnbextension
 
 # Science Extras
 # brew install pymol
