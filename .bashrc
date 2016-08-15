@@ -12,7 +12,8 @@ export JAVA_HOME="`/usr/libexec/java_home -v 1.8`"
 export PS1="$(tput setaf 5)[\!] $(tput setaf 1)[\A] $(tput setaf 2)[\u@\h:$(tput setaf 3)\w$(tput setaf 2)]$(tput setaf 4)\n\$ $(tput sgr0)"
 export PS2="> "
 
-export dotfiles=~/Dropbox/dev/dotfiles
+export cthdev=~/Dropbox/dev
+export dotfiles=$cthdev/dotfiles
 
 function edit-bashrc {
 	mate -w ~/.bashrc
@@ -35,12 +36,14 @@ function save-rcs {
 }
 
 function r-install {
-	echo "install.packages('$1')" >> ~/Dropbox/dev/dotfiles/install_packages.R
+	echo "$1" >> $dotfiles/r_packages.txt
 	r -e "install.packages('$1')"
 }
 
-function export-r-packages {
-	r -e "write.table(installed.packages(priority='NA'), '$dotfiles/r_packages.csv', sep=',')"
+function bioconductor-install {
+	echo "$1" >> $dotfiles/bioconductor_packages.txt
+	r -e "source('https://bioconductor.org/biocLite.R')"
+	r -e "biocLite('$1')"
 }
 
 function jnbc {
@@ -75,10 +78,10 @@ fi
 alias ..="cd .."
 alias ...="cd ../.."
 alias cool="echo cool"
-alias pyserver="cd ~/Dropbox/dev/$(whoami).github.io; python -m SimpleHTTPServer"
+alias pyserver="cd $cthdev/$(whoami).github.io; python -m SimpleHTTPServer"
 alias tree="tree -C"
 
-alias jn="jupyter notebook --notebook-dir ~/Dropbox/dev/notebooks"
+alias jn="jupyter notebook --notebook-dir $cthdev/notebooks"
 alias jnd="jupyter notebook --notebook-dir ~/dev"
 
 alias showallfiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
