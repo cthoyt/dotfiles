@@ -4,12 +4,16 @@
 
 ## Contents
 
-| File | Description |
+| Script | Description |
 | --- | --- |
 | `setup.sh` | automatically downloads everything and puts it all in the right place and sets up everything | 
+| `osx.sh` | has stuff to set all of my OSX settings |
+
+
+| Dotfile | Description | 
+| --- | --- |
 | `.bash_profile` | sources `.bashrc` because I don't know the [difference](http://stackoverflow.com/questions/415403/whats-the-difference-between-bashrc-bash-profile-and-environment) between interactive and non-interactive consoles |
 | `.bashrc` | has stuff to make my bash cool |
-| `osx.sh` | has stuff to set all of my OSX settings |
 | `.gitconfig` | stuff |
 | `.gitignore` | stuff not to include in cthoyt/dotfiles |
 | `.gitignore_global` | stuff to not include anywhere | 
@@ -21,7 +25,7 @@
 
 ### 1. Download and Run `setup.sh`
 
-- `curl -L https://raw.github.com/cthoyt/dotfiles/master/setup.sh | sh`
+- `curl -0L https://raw.github.com/cthoyt/dotfiles/master/setup.sh | sh`
 - no `virtualenv` yet
 
 ### 2. Something about SSH Keys

@@ -12,36 +12,36 @@ export JAVA_HOME="`/usr/libexec/java_home -v 1.8`"
 export PS1="$(tput setaf 5)[\!] $(tput setaf 1)[\A] $(tput setaf 2)[\u@\h:$(tput setaf 3)\w$(tput setaf 2)]$(tput setaf 4)\n\$ $(tput sgr0)"
 export PS2="> "
 
-export cthdev=~/Dropbox/dev
-export dotfiles=$cthdev/dotfiles
+export CTHDEV=~/Dropbox/dev
+export DOTFILES=$CTHDEV/dotfiles
 
 function edit-bashrc {
 	mate -w ~/.bashrc
-	cp ~/.bashrc $dotfiles/.bashrc
+	cp ~/.bashrc $DOTFILES/.bashrc
 	source ~/.bashrc
 	echo "nailed it"
 }
 
 function edit-rrc {
 	mate -w ~/.Rprofile
-	cp ~/.Rprofile $dotfiles/.bashrc
+	cp ~/.Rprofile $DOTFILES/.bashrc
 	echo nailed it
 }
 
 function save-rcs {
 	for i in .bashrc .Rprofile; do
-		echo "cp ~/$i $dotfiles/$i"
-		cp ~/$i $dotfiles/$i
+		echo "cp ~/$i $DOTFILES/$i"
+		cp ~/$i $DOTFILES/$i
 	done
 }
 
 function r-install {
-	echo "$1" >> $dotfiles/r_packages.txt
+	echo "$1" >> $DOTFILES/r_packages.txt
 	r -e "install.packages('$1')"
 }
 
 function bioconductor-install {
-	echo "$1" >> $dotfiles/bioconductor_packages.txt
+	echo "$1" >> $DOTFILES/bioconductor_packages.txt
 	r -e "source('https://bioconductor.org/biocLite.R')"
 	r -e "biocLite('$1')"
 }
@@ -78,10 +78,10 @@ fi
 alias ..="cd .."
 alias ...="cd ../.."
 alias cool="echo cool"
-alias pyserver="cd $cthdev/$(whoami).github.io; python -m SimpleHTTPServer"
+alias pyserver="cd $CTHDEV/$(whoami).github.io; python -m SimpleHTTPServer"
 alias tree="tree -C"
 
-alias jn="jupyter notebook --notebook-dir $cthdev/notebooks"
+alias jn="jupyter notebook --notebook-dir $CTHDEV/notebooks"
 alias jnd="jupyter notebook --notebook-dir ~/dev"
 
 alias showallfiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
@@ -102,14 +102,14 @@ function update-brew {
 # source /usr/local/bin/virtualenvwrapper.sh
 
 function update-python {
-	echo "Checking setuptools and pip"
+	echo "Checking setuptools, pip, and wheel"
 	pip3 install -U setuptools pip wheel
 	echo "Checking for outdated packages"
 	pip3 list -o | cut -d " " -f 1 | xargs -n 1 pip3 install -U
 }
 
 function update-python2 {
-	echo "Checking setuptools and pip"
+	echo "Checking setuptools, pip, and wheel"
 	pip2 install -U setuptools pip wheel
 	echo "Checking for outdated packages"
 	pip2 list -o | cut -d " " -f 1 | xargs -n 1 pip2 install -U

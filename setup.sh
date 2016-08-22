@@ -5,18 +5,17 @@
 # * see https://gist.github.com/ChristopherA/d48946c72d75c4330374
 # * see https://github.com/mathiasbynens/dotfiles
 
-# xcode command line tools
-xcode-select --install
 
-CTH_GITHUB="https://raw.github.com/cthoyt/dotfiles/master"
+GITHUB_FILES="https://raw.githubusercontent.com"
+CTH_GITHUB="$GITHUB_FILES/cthoyt/dotfiles/master"
 
 cd ~
 
 # dot files
-curl -0 "$CTH_GITHUB/.bashrc"
-curl -0 "$CTH_GITHUB/.bash_profile"
+curl -0L "$CTH_GITHUB/.bashrc" > ~/.bashrc
+curl -0L "$CTH_GITHUB/.bash_profile" > ~/.bash_profile
 
-source .bash_profile
+source ~/.bash_profile
 
 # brew (http://brew.sh/)
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -29,8 +28,8 @@ brew tap rdkit/rdkit
 
 # git 
 brew install git
-curl -0 "$CTH_GITHUB/.gitconfig"
-curl -0 "$CTH_GITHUB/.gitignore_global"
+curl -0L "$CTH_GITHUB/.gitconfig" > ~/.gitconfig
+curl -0L "$CTH_GITHUB/.gitignore_global" > ~/.gitignore_global
 git config --global core.excludesfile '~/.gitignore_global' # http://stackoverflow.com/questions/7335420/global-git-ignore
 git config --global core.editor "mate -wl1"
 git config --global user.name "Charles Tapley Hoyt"
@@ -147,7 +146,8 @@ mysql_install_db --verbose --user=`whoami` --basedir="$(brew --prefix mysql)" --
 update-brew
 
 # cron
-#curl -0 "$CTH_GITHUB/.cron"
+#curl -0L "$CTH_GITHUB/.cron"
 #crontab ~/.cron
 
+unset GITHUB_FILES
 unset CTH_GITHUB
