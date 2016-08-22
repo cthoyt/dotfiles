@@ -128,7 +128,12 @@ brew install pandoc
 # ruby
 brew install ruby
 gem install sequel
-gem install ffi-rzmq iruby # iruby notebook with jupyter
+gem install mechanize
+
+# iruby notebook (https://github.com/SciRuby/iruby#mac)
+brew install libtool autoconf automake autogen
+gem install rbczmq
+gem install iruby
 
 # node.js (maybe one day) (http://shapeshed.com/setting-up-nodejs-and-npm-on-mac-osx/)
 # brew install node
