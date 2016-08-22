@@ -1,6 +1,7 @@
 #! /usr/bin/env ruby
 
 # Restarts a local 2Wire Gateway
+# Takes one argument - the router admin password
 # See http://testvb.overclockers.co.uk/showthread.php?t=18383696
 
 require 'rubygems'
