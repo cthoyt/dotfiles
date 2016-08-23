@@ -7,6 +7,8 @@
 require 'rubygems'
 require 'mechanize'
 
+puts 'Restarting router'
+
 a = Mechanize.new { |agent|
   agent.user_agent_alias = 'Mac Safari'
 }

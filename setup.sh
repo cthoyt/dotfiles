@@ -36,6 +36,8 @@ git config --global user.name "Charles Tapley Hoyt"
 git config --global user.email "cthoyt@gmail.com"
 brew cask install github-desktop
 
+brew install ssh-copy-id
+
 brew install gcc
 brew install tree
 

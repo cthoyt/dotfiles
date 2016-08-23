@@ -32,17 +32,8 @@
 
 - [Generate new SSH key](https://help.github.com/articles/generating-ssh-keys/)
 - [Generate an access token](https://help.github.com/articles/creating-an-access-token-for-command-line-use/)
-
-- add stuff to ~/.ssh/config 
-
-example:
-```
-Host github-username
-	Hostname ssh.github.com
-	IdentityFile ~/.ssh/my_private_rsa
-	IdentitiesOnly yes
-	User git
-```
+- Prepare for [passwordless login](https://linuxconfig.org/passwordless-ssh)
+- Populate  ~/.ssh/config 
 
 ### 3. Install Licensed Software
 
