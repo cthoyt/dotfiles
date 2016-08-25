@@ -55,7 +55,7 @@ alias qq='exit'
 alias makef='time make -f'
 alias cd-jupyter-templates='cd /usr/local/lib/python3.5/site-packages/nbconvert/templates/latex'
 
-alias reboot-router='ruby $DOTFILES/restart_router.rb'
+alias reboot-router='ruby $DOTFILES/reboot_router.rb'
 
 function makea {
 	# make all make files in a directory
