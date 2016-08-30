@@ -12,27 +12,45 @@ export JAVA_HOME="`/usr/libexec/java_home -v 1.8`"
 export PS1="$(tput setaf 5)[\!] $(tput setaf 1)[\A] $(tput setaf 2)[\u@\h:$(tput setaf 3)\w$(tput setaf 2)]$(tput setaf 4)\n\$ $(tput sgr0)"
 export PS2="> "
 
-export CTHDEV=~/Dropbox/dev
-export DOTFILES=$CTHDEV/dotfiles
-
 function edit-bashrc {
 	mate -w ~/.bashrc
-	cp ~/.bashrc $DOTFILES/.bashrc
+	cp ~/.bashrc $DOTFILES/
 	source ~/.bashrc
 	echo "nailed it"
 }
 
 function edit-rrc {
 	mate -w ~/.Rprofile
-	cp ~/.Rprofile $DOTFILES/.bashrc
+	cp ~/.Rprofile $DOTFILES/
 	echo nailed it
 }
 
 function save-rcs {
-	for i in .bashrc .Rprofile; do
-		echo "cp ~/$i $DOTFILES/$i"
-		cp ~/$i $DOTFILES/$i
+	for i in ~/.bashrc ~/.Rprofile ~/.bash_profile; do
+		echo "cp $i $DOTFILES/"
+		cp $i $DOTFILES/
 	done
+	
+	cp ~/.jupyter/jupyter_notebook_config.py $DOTFILES/jupyter/
+	cp -r /usr/local/lib/python3.5/site-packages/nbconvert/templates/latex/custom/ $DOTFILES/latex_templates/
+}
+
+function notify {
+	res=$?
+	if [ "$res" = "0" ]; then
+		echo "$(tput 2)Notifying IFTTT$(tput sgr0)"
+	else
+		echo "Notifying IFTTT"
+	fi
+	curl -X POST -H "Content-Type: application/json" -d "{\"value1\":\"$*\",\"value2\":\"$res\"}" "https://maker.ifttt.com/trigger/script_done/with/key/$IFTTT_KEY" > /dev/null 2>&1
+}
+
+function notify-xargs {	
+	name=$1
+	shift
+	echo "$@" | sh
+	res=$?
+	curl -X POST -H "Content-Type: application/json" -d "{\"value1\":\"$name\",\"value2\":\"$res\"}" "https://maker.ifttt.com/trigger/script_done/with/key/$IFTTT_KEY" > /dev/null 2>&1
 }
 
 function r-install {
@@ -52,16 +70,21 @@ function jnbc {
 
 alias edit-sshconfig='mate ~/.ssh/config'
 alias qq='exit'
-alias makef='time make -f'
 alias cd-jupyter-templates='cd /usr/local/lib/python3.5/site-packages/nbconvert/templates/latex'
-
+alias resource="source ~/.bash_profile"
 alias reboot-router='ruby $DOTFILES/reboot_router.rb'
+
+function makef {
+	time make -f "$*"
+	notify "make done"
+}
 
 function makea {
 	# make all make files in a directory
 	for i in *.makefile; do
 		echo "$(tput setaf 5)make$(tput sgr0) -f $i"
 		make -f $i
+		notify "done making $i"
 		echo
 	done
 }
@@ -80,11 +103,11 @@ fi
 alias ..="cd .."
 alias ...="cd ../.."
 alias cool="echo cool"
-alias pyserver="cd $CTHDEV/$(whoami).github.io; python -m SimpleHTTPServer"
+alias pyserver="cd $WEBSITE; python -m SimpleHTTPServer"
 alias tree="tree -C"
 
-alias jn="jupyter notebook --notebook-dir $CTHDEV/notebooks"
-alias jnd="jupyter notebook --notebook-dir ~/dev"
+alias jnn="jupyter notebook --notebook-dir $NOTEBOOKS"
+alias jnd="jupyter notebook --notebook-dir $DEV"
 
 alias showallfiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
 alias hideallfiles='defaults write com.apple.finder AppleShowAllFiles NO;  killall Finder /System/Library/CoreServices/Finder.app'
