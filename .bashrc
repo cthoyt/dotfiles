@@ -25,14 +25,19 @@ function edit-rrc {
 	echo nailed it
 }
 
+# Editing
+#http://matplotlib.org/users/customizing.html#customizing-with-matplotlibrc-files
+
 function save-rcs {
-	for i in ~/.bashrc ~/.Rprofile ~/.bash_profile; do
-		echo "cp $i $DOTFILES/"
+	for i in ~/.bashrc ~/.Rprofile ~/.bash_profile ~/.matplotlib/matplotlibrc; do
+		#echo "cp $i $DOTFILES/"
 		cp $i $DOTFILES/
 	done
 	
-	cp ~/.jupyter/jupyter_notebook_config.py $DOTFILES/jupyter/
+	cp ~/.jupyter/jupyter_notebook_config.py $DOTFILES/
 	cp -r /usr/local/lib/python3.5/site-packages/nbconvert/templates/latex/custom/ $DOTFILES/latex_templates/
+	cp -r ~/.ipython/profile_default/startup/ $DOTFILES/ipython_startup/
+	cp ~/.ipython/profile_default/ipython_kernel_config.py $DOTFILES/
 }
 
 function notify {
