@@ -1,2 +1,4 @@
-font.family         : Computer Modern Roman
-tex.usetex			: True
+figure.figsize		: 10.5, 6
+text.usetex			: True
+font.family         : serif
+font.serif			: Computer Modern Roman, BitStream Vera Serif
