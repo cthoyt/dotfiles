@@ -44,9 +44,9 @@ function save-rcs {
 function notify {
 	res=$?
 	if [ "$res" = "0" ]; then
-		echo "$(tput 2)Notifying IFTTT$(tput sgr0)"
+		echo "$(tput setaf 2)Notifying IFTTT$(tput sgr0)"
 	else
-		echo "Notifying IFTTT"
+		echo "$(tput setaf 1)Notifying IFTTT$(tput sgr0)"
 	fi
 	curl -X POST -H "Content-Type: application/json" -d "{\"value1\":\"$*\",\"value2\":\"$res\"}" "https://maker.ifttt.com/trigger/script_done/with/key/$IFTTT_KEY" > /dev/null 2>&1
 }
