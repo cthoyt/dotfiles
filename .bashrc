@@ -34,10 +34,11 @@ function save-rcs {
 		cp $i $DOTFILES/
 	done
 	
-	cp ~/.jupyter/jupyter_notebook_config.py $DOTFILES/
+	cp ~/.jupyter/jupyter_notebook_config.py $DOTFILES/jupyter/
+	cp -r ~/.jupyter/custom/ $DOTFILES/jupyter/custom/
 	cp -r /usr/local/lib/python3.5/site-packages/nbconvert/templates/latex/custom/ $DOTFILES/latex_templates/
-	cp -r ~/.ipython/profile_default/startup/ $DOTFILES/ipython_startup/
-	cp ~/.ipython/profile_default/ipython_kernel_config.py $DOTFILES/
+	cp ~/.ipython/profile_default/ipython_kernel_config.py $DOTFILES/ipython/
+	cp -r ~/.ipython/profile_default/startup/ $DOTFILES/ipython/startup/
 }
 
 function notify {

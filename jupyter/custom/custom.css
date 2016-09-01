@@ -1,0 +1,32 @@
+.CodeMirror pre {
+    font-family: 'Source Code Pro', Consolas, monocco, monospace;
+}
+
+div.text_cell_render h1,  
+div.text_cell_render h2,  
+div.text_cell_render h3,  
+div.text_cell_render h4,  
+div.text_cell_render h5,  
+div.text_cell_render h6,
+div.text_cell_render {  
+    /*font-family: 'Computer Modern Roman';*/
+}
+
+div.text_cell_render h1 {
+	font-weight: extra-bold;
+	color: #000;
+}
+
+div.text_cell_render h2 {
+	font-weight: bold;
+	color: #444;
+	
+}
+
+div.text_cell_render h3 {
+	color: #666;
+}
+
+div.text_cell_render {
+	line-height: 1.7;
+}
