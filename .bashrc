@@ -35,6 +35,7 @@ function save-rcs {
 	done
 	
 	cp ~/.jupyter/jupyter_notebook_config.py $DOTFILES/jupyter/
+	cp ~/.jupyter/jupyter_nbconvert_config.py $DOTFILES/jupyter/
 	cp -r ~/.jupyter/custom/ $DOTFILES/jupyter/custom/
 	cp -r /usr/local/lib/python3.5/site-packages/nbconvert/templates/latex/custom/ $DOTFILES/latex_templates/
 	cp ~/.ipython/profile_default/ipython_kernel_config.py $DOTFILES/ipython/
@@ -71,7 +72,7 @@ function bioconductor-install {
 }
 
 function jnbc {
-	jupyter nbconvert "$1" --to pdf --template no_code.tplx --output-dir=~/Downloads
+	jupyter nbconvert "$1" --to pdf --template custom/no_code.tplx --output-dir=~/Downloads
 }
 
 alias edit-sshconfig='mate ~/.ssh/config'
