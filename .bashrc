@@ -162,6 +162,9 @@ function update-all {
 	echo "$(tput setaf 5)Updating Python 3$(tput sgr0)"
 	update-python
 	echo
+	echo "$(tput setaf 5)Updating Python 2$(tput sgr0)"
+	update-python2
+	echo
 	echo "$(tput setaf 5)Updating Ruby$(tput sgr0)"
 	update-ruby
 }
