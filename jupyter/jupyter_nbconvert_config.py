@@ -1,3 +1,4 @@
+c.InlineBackend.figure_format = 'svg'
 # Configuration file for jupyter-nbconvert.
 
 #------------------------------------------------------------------------------

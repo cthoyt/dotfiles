@@ -50,7 +50,7 @@ brew cask install appcleaner caffeine dropbox evernote filezilla flux
 brew cask install google-photos-backup music-manager google-chrome google-drive
 brew cask install istat-menu perian shuttle skype transmission vlc vox 
 brew cask install vox-preference-pane mendeley-desktop
-brew cask install textmate
+brew cask install textmate slack owncloud
 
 # Quicklook Plugins
 
@@ -148,7 +148,7 @@ brew install neo4j
 
 # MySQL
 brew install mysql
-mysql_install_db --verbose --user=`whoami` --basedir="$(brew --prefix mysql)" --datadir=/usr/local/var/mysql --tmpdir=/tmp
+mysql_install_db --verbose --user="$(whoami)" --basedir="$(brew --prefix mysql)" --datadir=/usr/local/var/mysql --tmpdir=/tmp
 
 update-brew
 

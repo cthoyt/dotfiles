@@ -1,5 +1,19 @@
 #!/usr/bin/env bash
 
+export PATH=~/.local/bin:$PATH
+
+export DEV=~/dev
+export DOTFILES=~/dev/dotfiles
+export NOTEBOOKS=~/dev/notebooks
+export WEBSITE=~/dev/cthoyt.github.io
+export BANANA_BASE=~/dev/banana
+export BUG_FREE_EUREKA_BASE=~/dev/bug-free-eureka
+export AETIONOMY_BASE=~/dev/aetionomy
+export PYBEL_BASE=~/dev/pybel
+
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
+source /usr/local/bin/virtualenvwrapper.sh
+
 export EDITOR="/usr/local/bin/mate -w"
 export PYTHONPATH="/usr/local/lib/python3:$PYTHONPATH"
 export LC_ALL=en_US.UTF-8
@@ -7,6 +21,10 @@ export LANG=en_US.UTF-8
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 export RDBASE="/usr/local/share/RDKit"
 export JAVA_HOME="`/usr/libexec/java_home -v 1.8`"
+
+if [ -f ~/.bash_secrets ]; then
+	source ~/.bash_secrets
+fi
 
 # customize bash prompt (http://bneijt.nl/blog/post/add-a-timestamp-to-your-bash-prompt/)
 export PS1="$(tput setaf 5)[\!] $(tput setaf 1)[\A] $(tput setaf 2)[\u@\h:$(tput setaf 3)\w$(tput setaf 2)]$(tput setaf 4)\n\$ $(tput sgr0)"
@@ -29,17 +47,16 @@ function edit-rrc {
 #http://matplotlib.org/users/customizing.html#customizing-with-matplotlibrc-files
 
 function save-rcs {
-	for i in ~/.bashrc ~/.Rprofile ~/.bash_profile ~/.matplotlib/matplotlibrc; do
+	for i in ~/.profile ~/.bashrc ~/.Rprofile ~/.bash_profile ~/.matplotlib/matplotlibrc; do
 		#echo "cp $i $DOTFILES/"
 		cp $i $DOTFILES/
 	done
 	
-	cp ~/.jupyter/jupyter_notebook_config.py $DOTFILES/jupyter/
-	cp ~/.jupyter/jupyter_nbconvert_config.py $DOTFILES/jupyter/
-	cp -r ~/.jupyter/custom/ $DOTFILES/jupyter/custom/
+	cp -r ~/.jupyter/ $DOTFILES/jupyter/
+	cp -r ~/.ipython/ $DOTFILES/ipython/
+	
+	cp ~/.gitignore $DOTFILES/.gitignore_global
 	cp -r /usr/local/lib/python3.5/site-packages/nbconvert/templates/latex/custom/ $DOTFILES/latex_templates/
-	cp ~/.ipython/profile_default/ipython_kernel_config.py $DOTFILES/ipython/
-	cp -r ~/.ipython/profile_default/startup/ $DOTFILES/ipython/startup/
 }
 
 function notify {

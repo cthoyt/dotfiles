@@ -39,3 +39,6 @@ Thumbs.db
 
 # Jupyter Notebook Checkpoints
 *-checkpoint.ipynb
+
+# PyCharm
+.idea/*
