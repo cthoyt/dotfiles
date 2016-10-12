@@ -6,3 +6,5 @@ secret_setup.sh
 ipython/startup/README
 
 ipython/profile_default/startup/README
+
+jupyter/migrated

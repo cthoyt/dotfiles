@@ -85,6 +85,10 @@ psql postgres -c 'CREATE EXTENSION "adminpack";'
 # python
 brew install python3
 
+curl https://raw.githubusercontent.com/mitsuhiko/pipsi/master/get-pipsi.py | python3
+
+pipsi install tox bumpversion sphinx pytest
+
 # virtual environment (http://docs.python-guide.org/en/latest/dev/virtualenvs/)
 pip3 install virtualenv virtualenvwrapper
 # export WORKON_HOME=~/.virtualenvs
