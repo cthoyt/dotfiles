@@ -48,7 +48,6 @@ function edit-rrc {
 
 function save-rcs {
 	for i in ~/.profile ~/.bashrc ~/.Rprofile ~/.bash_profile ~/.matplotlib/matplotlibrc; do
-		#echo "cp $i $DOTFILES/"
 		cp $i $DOTFILES/
 	done
 	
