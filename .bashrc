@@ -40,7 +40,7 @@ function edit-bashrc {
 function edit-rrc {
 	mate -w ~/.Rprofile
 	cp ~/.Rprofile $DOTFILES/
-	echo nailed it
+	echo "nailed it"
 }
 
 # Editing
@@ -138,16 +138,12 @@ alias hideallfiles='defaults write com.apple.finder AppleShowAllFiles NO;  killa
 function update-brew {
 	brew update
 	brew doctor
-	brew upgrade --all
+	brew upgrade
 	brew cleanup --force
 	brew prune
 	brew cask update --all
 	brew cask cleanup
 }
-
-# TODO evaluate virtualenv
-# export WORKON_HOME=~/.virtualenvs
-# source /usr/local/bin/virtualenvwrapper.sh
 
 function update-python {
 	echo "Checking setuptools, pip, and wheel"
@@ -227,3 +223,6 @@ alias stop-neo4j="neo4j stop"
 
 # find
 alias find-stoppables="ps aux | egrep 'sql|neo4j' --color"
+
+# added by travis gem
+[ -f /Users/cthoyt/.travis/travis.sh ] && source /Users/cthoyt/.travis/travis.sh

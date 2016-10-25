@@ -34,18 +34,19 @@ git config --global core.excludesfile '~/.gitignore_global' # http://stackoverfl
 git config --global core.editor "mate -wl1"
 git config --global user.name "Charles Tapley Hoyt"
 git config --global user.email "cthoyt@gmail.com"
-brew cask install github-desktop
-
-brew install ssh-copy-id
 
 brew install gcc
+
+brew install ssh-copy-id
 brew install tree
 
 # brew-cask (https://github.com/caskroom/homebrew-cask)
 brew install brew-cask 
 
-# GUI Applications
+brew cask install xquartz java
 
+# GUI Applications
+brew cask install github-desktop
 brew cask install appcleaner caffeine dropbox evernote filezilla flux  
 brew cask install google-photos-backup music-manager google-chrome google-drive
 brew cask install istat-menu perian shuttle skype transmission vlc vox 
@@ -63,7 +64,6 @@ echo /usr/local/bin/bash >> /etc/shells
 chsh -s /usr/local/bin/bash
 
 # r
-brew cask install xquartz # xquartz: r dependency
 brew install R
 
 # postgres 
@@ -135,6 +135,7 @@ brew install pandoc
 brew install ruby
 gem install sequel
 gem install mechanize
+gem install travis
 
 # iruby notebook (https://github.com/SciRuby/iruby#mac)
 brew install libtool autoconf automake autogen

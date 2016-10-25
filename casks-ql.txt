@@ -1,0 +1,4 @@
+jupyter-notebook-ql
+qlstephen
+quicklook-csv
+quicklook-json
