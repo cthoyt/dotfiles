@@ -21,6 +21,7 @@ export LANG=en_US.UTF-8
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 export RDBASE="/usr/local/share/RDKit"
 export JAVA_HOME="`/usr/libexec/java_home -v 1.8`"
+export UIMA_HOME=~/dev/apache-uima
 
 if [ -f ~/.bash_secrets ]; then
 	source ~/.bash_secrets

@@ -25,6 +25,7 @@ brew update && brew cleanup && brew doctor
 brew tap caskroom/cask
 brew tap homebrew/science
 brew tap rdkit/rdkit
+brew tap homebrew/gui
 
 # git 
 brew install git
@@ -153,7 +154,6 @@ brew install neo4j
 
 # MySQL
 brew install mysql
-mysql_install_db --verbose --user="$(whoami)" --basedir="$(brew --prefix mysql)" --datadir=/usr/local/var/mysql --tmpdir=/tmp
 
 update-brew
 
