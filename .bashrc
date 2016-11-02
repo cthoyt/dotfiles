@@ -227,3 +227,6 @@ alias find-stoppables="ps aux | egrep 'sql|neo4j' --color"
 [ -f /Users/cthoyt/.travis/travis.sh ] && source /Users/cthoyt/.travis/travis.sh
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+
