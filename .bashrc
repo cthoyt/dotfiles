@@ -12,7 +12,7 @@ export AETIONOMY_BASE=~/dev/aetionomy
 export PYBEL_BASE=~/dev/pybel
 
 export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
-source /usr/local/bin/virtualenvwrapper.sh
+[ -f /usr/local/bin/virtualenvwrapper.sh ] && source /usr/local/bin/virtualenvwrapper.sh
 
 export EDITOR="/usr/local/bin/mate -w"
 export PYTHONPATH="/usr/local/lib/python3:$PYTHONPATH"
@@ -23,9 +23,7 @@ export RDBASE="/usr/local/share/RDKit"
 export JAVA_HOME="`/usr/libexec/java_home -v 1.8`"
 export UIMA_HOME=~/dev/apache-uima
 
-if [ -f ~/.bash_secrets ]; then
-	source ~/.bash_secrets
-fi
+[ -f ~/.bash_secrets ] && source ~/.bash_secrets
 
 # customize bash prompt (http://bneijt.nl/blog/post/add-a-timestamp-to-your-bash-prompt/)
 export PS1="$(tput setaf 5)[\!] $(tput setaf 1)[\A] $(tput setaf 2)[\u@\h:$(tput setaf 3)\w$(tput setaf 2)]$(tput setaf 4)\n\$ $(tput sgr0)"
@@ -48,7 +46,7 @@ function edit-rrc {
 #http://matplotlib.org/users/customizing.html#customizing-with-matplotlibrc-files
 
 function save-rcs {
-	for i in ~/.profile ~/.bashrc ~/.Rprofile ~/.bash_profile ~/.matplotlib/matplotlibrc; do
+	for i in ~/.profile ~/.bashrc ~/.Rprofile ~/.bash_profile ~/.matplotlib/matplotlibrc ~/.gemrc; do
 		cp $i $DOTFILES/
 	done
 	
@@ -227,3 +225,5 @@ alias find-stoppables="ps aux | egrep 'sql|neo4j' --color"
 
 # added by travis gem
 [ -f /Users/cthoyt/.travis/travis.sh ] && source /Users/cthoyt/.travis/travis.sh
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
