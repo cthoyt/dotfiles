@@ -5,6 +5,7 @@ autoconf
 automake
 autogen
 brew-cask
+doxygen
 ssh-copy-id
 tree
 bash
