@@ -11,9 +11,6 @@ export BUG_FREE_EUREKA_BASE=~/dev/bug-free-eureka
 export AETIONOMY_BASE=~/dev/aetionomy
 export PYBEL_BASE=~/dev/pybel
 
-export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
-[ -f /usr/local/bin/virtualenvwrapper.sh ] && source /usr/local/bin/virtualenvwrapper.sh
-
 export EDITOR="/usr/local/bin/mate -w"
 export PYTHONPATH="/usr/local/lib/python3:$PYTHONPATH"
 export LC_ALL=en_US.UTF-8
@@ -24,6 +21,17 @@ export JAVA_HOME="`/usr/libexec/java_home -v 1.8`"
 export UIMA_HOME=~/dev/apache-uima
 
 [ -f ~/.bash_secrets ] && source ~/.bash_secrets
+
+# Get virtualenv ready
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
+[ -f /usr/local/bin/virtualenvwrapper.sh ] && source /usr/local/bin/virtualenvwrapper.sh
+
+# Get rbenv ready
+eval "$(rbenv init -)"
+
+# Get RVM ready
+# export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+# [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
 # customize bash prompt (http://bneijt.nl/blog/post/add-a-timestamp-to-your-bash-prompt/)
 export PS1="$(tput setaf 5)[\!] $(tput setaf 1)[\A] $(tput setaf 2)[\u@\h:$(tput setaf 3)\w$(tput setaf 2)]$(tput setaf 4)\n\$ $(tput sgr0)"
@@ -43,7 +51,7 @@ function edit-rrc {
 }
 
 # Editing
-#http://matplotlib.org/users/customizing.html#customizing-with-matplotlibrc-files
+# http://matplotlib.org/users/customizing.html#customizing-with-matplotlibrc-files
 
 function save-rcs {
 	for i in ~/.profile ~/.bashrc ~/.Rprofile ~/.bash_profile ~/.matplotlib/matplotlibrc ~/.gemrc; do
@@ -145,6 +153,7 @@ function update-brew {
 }
 
 function update-python {
+	head -n 1 $(which pip3)
 	echo "Checking setuptools, pip, and wheel"
 	pip3 install -U setuptools pip wheel
 	echo "Checking for outdated packages"
@@ -152,6 +161,7 @@ function update-python {
 }
 
 function update-python2 {
+	head -n 1 $(which pip2)
 	echo "Checking setuptools, pip, and wheel"
 	pip2 install -U setuptools pip wheel
 	echo "Checking for outdated packages"
@@ -161,6 +171,7 @@ function update-python2 {
 # TODO evaluate rbenv (https://github.com/rbenv/rbenv)
 
 function update-ruby {
+	head -n 1 $(which gem)
 	gem update --system
 	gem update 
 	gem cleanup
@@ -226,7 +237,4 @@ alias find-stoppables="ps aux | egrep 'sql|neo4j' --color"
 # added by travis gem
 [ -f /Users/cthoyt/.travis/travis.sh ] && source /Users/cthoyt/.travis/travis.sh
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 

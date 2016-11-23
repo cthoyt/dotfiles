@@ -8,6 +8,7 @@ google-photos-backup
 google-chrome
 google-drive
 github-desktop
+insomniax
 istat-menu
 mendeley-desktop
 music-manager

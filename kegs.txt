@@ -13,6 +13,7 @@ postgres
 python3
 python
 ruby
+rbenv
 r
 freetype
 zeromq
