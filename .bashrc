@@ -191,6 +191,8 @@ function update-all {
 	update-ruby
 }
 
+alias u="update-all"
+
 function openapp {
 	if [ -e "/Users/$(whoami)/Applications/$1.app" ] ; then
 		open -a "/Users/$(whoami)/Applications/$1.app"
