@@ -50,6 +50,14 @@ function edit-rrc {
 	echo "nailed it"
 }
 
+function gb {
+	x=$(pwd)
+	cd ~/dev/$1
+	echo $(git symbolic-ref HEAD --short)
+	cd $x
+	unset x
+}
+
 # Editing
 # http://matplotlib.org/users/customizing.html#customizing-with-matplotlibrc-files
 
