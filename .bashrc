@@ -58,6 +58,14 @@ function gb {
 	unset x
 }
 
+function whichdo {
+	$1 $(which $2)
+}
+
+function hw {
+	head $(which $1)
+}
+
 # Editing
 # http://matplotlib.org/users/customizing.html#customizing-with-matplotlibrc-files
 
@@ -154,26 +162,25 @@ function update-brew {
 	brew update
 	brew doctor
 	brew upgrade
-	brew cleanup --force
-	brew prune
-	brew cask update --all
+	brew cleanup
 	brew cask cleanup
+	brew prune
 }
 
-function update-python {
+function update-python3 {
 	head -n 1 $(which pip3)
 	echo "Checking setuptools, pip, and wheel"
 	pip3 install -U setuptools pip wheel
 	echo "Checking for outdated packages"
-	pip3 list -o | cut -d " " -f 1 | xargs -n 1 pip3 install -U
+	pip3 list -o --format=columns | cut -d " " -f 1 | tail -n +3 | xargs -n 1 pip3 install -U	
 }
 
-function update-python2 {
-	head -n 1 $(which pip2)
+function update-python {
+	head -n 1 $(which pip)
 	echo "Checking setuptools, pip, and wheel"
-	pip2 install -U setuptools pip wheel
+	pip install -U setuptools pip wheel
 	echo "Checking for outdated packages"
-	pip2 list -o | cut -d " " -f 1 | xargs -n 1 pip2 install -U
+	pip list -o --format=columns | cut -d " " -f 1 | tail -n +3 | xargs -n 1 pip install -U
 }
 
 # TODO evaluate rbenv (https://github.com/rbenv/rbenv)
@@ -190,10 +197,10 @@ function update-all {
 	update-brew
 	echo
 	echo "$(tput setaf 5)Updating Python 3$(tput sgr0)"
-	update-python
+	update-python3
 	echo
 	echo "$(tput setaf 5)Updating Python 2$(tput sgr0)"
-	update-python2
+	update-python
 	echo
 	echo "$(tput setaf 5)Updating Ruby$(tput sgr0)"
 	update-ruby
