@@ -229,6 +229,10 @@ function reinstall-irkernel {
 	r -e "IRkernel::installspec()"
 }
 
+function grepall {
+	grep -r $1 . --color=auto
+}
+
 # startables and stoppables
 
 # postgres (currently running automatically in background)
