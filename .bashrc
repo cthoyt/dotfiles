@@ -248,6 +248,10 @@ alias stop-mysql="mysqladmin -u root shutdown"
 alias start-neo4j="neo4j start"
 alias stop-neo4j="neo4j stop"
 
+# redis message broker
+alias start-redis="redis-server"
+alias stop-redis="redis-cli shutdown"
+
 # find
 alias find-stoppables="ps aux | egrep 'sql|neo4j' --color"
 
