@@ -10,6 +10,7 @@ export BANANA_BASE=~/dev/banana
 export BUG_FREE_EUREKA_BASE=~/dev/bug-free-eureka
 export AETIONOMY_BASE=~/dev/aetionomy
 export PYBEL_BASE=~/dev/pybel
+export NEUROMMSIG_BASE=~/dev/neurommsig
 
 export EDITOR="/usr/local/bin/mate -w"
 export PYTHONPATH="/usr/local/lib/python3:$PYTHONPATH"
