@@ -60,6 +60,10 @@ function gb {
 	unset x
 }
 
+function rsl {
+	readlink $(which $1)
+}
+
 function whichdo {
 	$1 $(which $2)
 }
