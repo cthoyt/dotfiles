@@ -154,8 +154,8 @@ alias cool="echo cool"
 alias pyserver="cd $WEBSITE; python -m SimpleHTTPServer"
 alias tree="tree -C"
 
-alias jnn="jupyter notebook --notebook-dir $NOTEBOOKS"
-alias jnd="jupyter notebook --notebook-dir $DEV"
+alias jnn="python3 -m jupyter notebook --notebook-dir $NOTEBOOKS"
+alias jnd="python3 -m jupyter notebook --notebook-dir $DEV"
 
 alias showallfiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
 alias hideallfiles='defaults write com.apple.finder AppleShowAllFiles NO;  killall Finder /System/Library/CoreServices/Finder.app'
