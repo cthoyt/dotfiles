@@ -12,6 +12,8 @@ export AETIONOMY_BASE=~/dev/aetionomy
 export PYBEL_BASE=~/dev/pybel
 export BMS_BASE=~/dev/bms
 export NEUROMMSIG_BASE=~/dev/neurommsig
+export PYBEL2CX_BASE=~/dev/pybel2cx
+export OWNCLOUD_BASE=~/ownCloud
 
 export EDITOR="/usr/local/bin/mate -w"
 export PYTHONPATH="/usr/local/lib/python3:$PYTHONPATH"
@@ -52,6 +54,7 @@ function edit-rrc {
 	echo "nailed it"
 }
 
+# Gets the branch at the argument's path
 function gb {
 	x=$(pwd)
 	cd ~/dev/$1
@@ -60,6 +63,7 @@ function gb {
 	unset x
 }
 
+# Reads the link of a program
 function rsl {
 	readlink $(which $1)
 }
