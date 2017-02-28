@@ -30,8 +30,14 @@ export UIMA_HOME=~/dev/apache-uima
 export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
 [ -f /usr/local/bin/virtualenvwrapper.sh ] && source /usr/local/bin/virtualenvwrapper.sh
 
+command_exists () {
+  command "$1" &> /dev/null ;
+}
+
 # Get rbenv ready
-eval "$(rbenv init -)"
+if command_exists rbenv; then
+	eval "$(rbenv init -)"
+fi
 
 # Get RVM ready
 # export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
