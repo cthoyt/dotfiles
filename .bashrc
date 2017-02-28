@@ -84,25 +84,24 @@ function save-rcs {
 		cp $i $DOTFILES/
 	done
 	
-	cp -r ~/.matplotlib/matplotlibrc $DOTFILES/matplotlib
+	cp ~/.matplotlib/matplotlibrc $DOTFILES/matplotlibrc
+	
 	cp -r ~/.jupyter/ $DOTFILES/jupyter/
 	cp -r ~/.ipython/ $DOTFILES/ipython/
-	
 	cp -r /usr/local/lib/python3.6/site-packages/nbconvert/templates/latex/custom/ $DOTFILES/latex_templates/
 }
 
 # The repopulate function should do the opposite of save-rcs
 function repopulate-rcs {
 	for i in .profile .bashrc .Rprofile .bash_profile .gemrc .gitignore_global; do
-		cp $DOTFILES/$i ~
+		cp $DOTFILES/$i ~/
 	done
 	
-	cp -r $DOTFILES/matplotlibrc .~/matplotlib
+	cp $DOTFILES/matplotlibrc ~/.matplotlib/matplotlibrc
+	
 	cp -r $DOTFILES/jupyter/ ~/.jupyter/
 	cp -r $DOTFILES/ipython/  ~/.ipython/
-	
 	cp -r $DOTFILES/latex_templates/ /usr/local/lib/python3.6/site-packages/nbconvert/templates/latex/custom/ 
-
 }
 
 function notify {
