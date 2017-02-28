@@ -80,15 +80,29 @@ function hw {
 # http://matplotlib.org/users/customizing.html#customizing-with-matplotlibrc-files
 
 function save-rcs {
-	for i in ~/.profile ~/.bashrc ~/.Rprofile ~/.bash_profile ~/.matplotlib/matplotlibrc ~/.gemrc; do
+	for i in ~/.profile ~/.bashrc ~/.Rprofile ~/.bash_profile ~/.gemrc ~/.gitignore_global; do
 		cp $i $DOTFILES/
 	done
 	
+	cp -r ~/.matplotlib/matplotlibrc $DOTFILES/matplotlib
 	cp -r ~/.jupyter/ $DOTFILES/jupyter/
 	cp -r ~/.ipython/ $DOTFILES/ipython/
 	
-	cp ~/.gitignore $DOTFILES/.gitignore_global
-	cp -r /usr/local/lib/python3.5/site-packages/nbconvert/templates/latex/custom/ $DOTFILES/latex_templates/
+	cp -r /usr/local/lib/python3.6/site-packages/nbconvert/templates/latex/custom/ $DOTFILES/latex_templates/
+}
+
+# The repopulate function should do the opposite of save-rcs
+function repopulate-rcs {
+	for i in .profile .bashrc .Rprofile .bash_profile .gemrc .gitignore_global; do
+		cp $DOTFILES/$i ~
+	done
+	
+	cp -r $DOTFILES/matplotlibrc .~/matplotlib
+	cp -r $DOTFILES/jupyter/ ~/.jupyter/
+	cp -r $DOTFILES/ipython/  ~/.ipython/
+	
+	cp -r $DOTFILES/latex_templates/ /usr/local/lib/python3.6/site-packages/nbconvert/templates/latex/custom/ 
+
 }
 
 function notify {
