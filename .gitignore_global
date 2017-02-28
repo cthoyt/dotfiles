@@ -8,6 +8,7 @@
 *.exe
 *.o
 *.so
+*.pyc
 
 # Packages #
 ############
@@ -40,5 +41,6 @@ Thumbs.db
 # Jupyter Notebook Checkpoints
 *-checkpoint.ipynb
 
-# PyCharm
+# IDE #
+#######
 .idea/*
