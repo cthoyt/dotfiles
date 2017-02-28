@@ -86,7 +86,7 @@ function hw {
 # http://matplotlib.org/users/customizing.html#customizing-with-matplotlibrc-files
 
 function save-rcs {
-	for i in ~/.profile ~/.bashrc ~/.Rprofile ~/.bash_profile ~/.gemrc ~/.gitignore_global; do
+	for i in ~/.profile ~/.bashrc ~/.Rprofile ~/.bash_profile ~/.gemrc ~/.gitignore_global ~/.gitconfig; do
 		cp $i $DOTFILES/
 	done
 	
@@ -99,7 +99,7 @@ function save-rcs {
 
 # The repopulate function should do the opposite of save-rcs
 function repopulate-rcs {
-	for i in .profile .bashrc .Rprofile .bash_profile .gemrc .gitignore_global; do
+	for i in .profile .bashrc .Rprofile .bash_profile .gemrc .gitignore_global .gitconfig; do
 		cp $DOTFILES/$i ~/
 	done
 	
