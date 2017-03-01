@@ -224,16 +224,16 @@ function update_ruby {
 
 function update_all {
 	echo "$(tput setaf 5)Updating Brew$(tput sgr0)"	
-	update-brew
+	update_brew
 	echo
 	echo "$(tput setaf 5)Updating Python 3$(tput sgr0)"
-	update-python3
+	update_python3
 	echo
 	echo "$(tput setaf 5)Updating Python 2$(tput sgr0)"
-	update-python
+	update_python
 	echo
 	echo "$(tput setaf 5)Updating Ruby$(tput sgr0)"
-	update-ruby
+	update_ruby
 }
 
 alias u="update_all"
