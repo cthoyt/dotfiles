@@ -48,14 +48,16 @@ fi
 export PS1="$(tput setaf 5)[\!] $(tput setaf 1)[\A] $(tput setaf 2)[\u@\h:$(tput setaf 3)\w$(tput setaf 2)]$(tput setaf 4)\n\$ $(tput sgr0)"
 export PS2="> "
 
-function edit-bashrc {
+# Edit .bashrc
+function ebrc {
 	mate -w ~/.bashrc
 	cp ~/.bashrc $DOTFILES/
 	source ~/.bashrc
 	echo "nailed it"
 }
 
-function edit-rrc {
+# Edit .Rprofile
+function errc {
 	mate -w ~/.Rprofile
 	cp ~/.Rprofile $DOTFILES/
 	echo "nailed it"
@@ -86,7 +88,7 @@ function hw {
 # Editing
 # http://matplotlib.org/users/customizing.html#customizing-with-matplotlibrc-files
 
-function save-rcs {
+function save_rcs {
 	for i in ~/.profile ~/.bashrc ~/.Rprofile ~/.bash_profile ~/.gemrc ~/.gitignore_global ~/.gitconfig; do
 		cp $i $DOTFILES/
 	done
@@ -99,7 +101,7 @@ function save-rcs {
 }
 
 # The repopulate function should do the opposite of save-rcs
-function repopulate-rcs {
+function repopulate_rcs {
 	for i in .profile .bashrc .Rprofile .bash_profile .gemrc .gitignore_global .gitconfig; do
 		cp $DOTFILES/$i ~/
 	done
@@ -121,7 +123,7 @@ function notify {
 	curl -X POST -H "Content-Type: application/json" -d "{\"value1\":\"$*\",\"value2\":\"$res\"}" "https://maker.ifttt.com/trigger/script_done/with/key/$IFTTT_KEY" > /dev/null 2>&1
 }
 
-function notify-xargs {	
+function notify_xargs {	
 	name=$1
 	shift
 	echo "$@" | sh
@@ -129,12 +131,12 @@ function notify-xargs {
 	curl -X POST -H "Content-Type: application/json" -d "{\"value1\":\"$name\",\"value2\":\"$res\"}" "https://maker.ifttt.com/trigger/script_done/with/key/$IFTTT_KEY" > /dev/null 2>&1
 }
 
-function r-install {
+function r_install {
 	echo "$1" >> $DOTFILES/r_packages.txt
 	r -e "install.packages('$1')"
 }
 
-function bioconductor-install {
+function bioconductor_install {
 	echo "$1" >> $DOTFILES/bioconductor_packages.txt
 	r -e "source('https://bioconductor.org/biocLite.R')"
 	r -e "biocLite('$1')"
@@ -188,7 +190,7 @@ alias jnd="python3 -m jupyter notebook --notebook-dir $DEV"
 alias showallfiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
 alias hideallfiles='defaults write com.apple.finder AppleShowAllFiles NO;  killall Finder /System/Library/CoreServices/Finder.app'
 
-function update-brew {
+function update_brew {
 	brew update
 	brew doctor
 	brew upgrade
@@ -197,7 +199,7 @@ function update-brew {
 	brew prune
 }
 
-function update-python3 {
+function update_python3 {
 	head -n 1 $(which pip3)
 	echo "Checking setuptools, pip, and wheel"
 	pip3 install -U setuptools pip wheel
@@ -205,7 +207,7 @@ function update-python3 {
 	pip3 list -o --format=columns | cut -d " " -f 1 | tail -n +3 | xargs -n 1 pip3 install -U	
 }
 
-function update-python {
+function update_python {
 	head -n 1 $(which pip)
 	echo "Checking setuptools, pip, and wheel"
 	pip install -U setuptools pip wheel
@@ -213,16 +215,14 @@ function update-python {
 	pip list -o --format=columns | cut -d " " -f 1 | tail -n +3 | xargs -n 1 pip install -U
 }
 
-# TODO evaluate rbenv (https://github.com/rbenv/rbenv)
-
-function update-ruby {
+function update_ruby {
 	head -n 1 $(which gem)
 	gem update --system
 	gem update 
 	gem cleanup
 }
 
-function update-all {
+function update_all {
 	echo "$(tput setaf 5)Updating Brew$(tput sgr0)"	
 	update-brew
 	echo
@@ -236,7 +236,7 @@ function update-all {
 	update-ruby
 }
 
-alias u="update-all"
+alias u="update_all"
 
 function openapp {
 	if [ -e "/Users/$(whoami)/Applications/$1.app" ] ; then
@@ -252,7 +252,8 @@ function gettodos {
 	cat $1 | egrep "\[(t|todo|t:)\]"
 }
 
-function reinstall-irkernel {
+# Reinstalls the R kernel for Jupyter notebook
+function reinstall_irkernel {
 	r -e "install.packages(c('repr', 'pbdZMQ', 'devtools'), repos='http://cran.us.r-project.org')"
 	r -e "devtools::install_github('IRkernel/IRdisplay')"
 	r -e "devtools::install_github('IRkernel/IRkernel')"
