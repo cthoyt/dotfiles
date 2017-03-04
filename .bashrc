@@ -10,6 +10,7 @@ export BANANA_BASE=~/dev/banana
 export BUG_FREE_EUREKA_BASE=~/dev/bug-free-eureka
 export AETIONOMY_BASE=~/dev/aetionomy
 export PYBEL_BASE=~/dev/pybel
+export PYBEL_TOOLS_BASE=~/dev/pybel-tools
 export PYBEL_RESOURCES_BASE=~/dev/pybel-resources
 export BMS_BASE=~/dev/bms
 export NEUROMMSIG_BASE=~/dev/neurommsig

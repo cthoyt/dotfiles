@@ -31,4 +31,8 @@
   smudge = git-lfs smudge %f
   
 [core]
-  editor = mate -wl1
+	editor = mate -wl1
+	excludesfile = ~/.gitignore_global
+[user]
+	name = Charles Tapley Hoyt
+	email = cthoyt@gmail.com
