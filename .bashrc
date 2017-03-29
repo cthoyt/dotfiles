@@ -73,15 +73,18 @@ function gb {
 	unset x
 }
 
-# Reads the link of a program
+# Reads the symlink of a program
+# Example: rsl python3 outputs
 function rsl {
-	readlink $(which $1)
+	greadlink -f $(which $1)
 }
 
 function whichdo {
 	$1 $(which $2)
 }
 
+# Outputs the first couple lines of a given wrapper. Useful for checking out python commands
+# Example: which tox
 function hw {
 	head $(which $1)
 }
