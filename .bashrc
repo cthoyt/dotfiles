@@ -206,17 +206,17 @@ function update_brew {
 function update_python3 {
 	head -n 1 $(which pip3)
 	echo "Checking setuptools, pip, and wheel"
-	pip3 install -U setuptools pip wheel
+	python3 -m pip install -U setuptools pip wheel
 	echo "Checking for outdated packages"
-	pip3 list -o --format=columns | cut -d " " -f 1 | tail -n +3 | xargs -n 1 pip3 install -U	
+	python3 -m pip list -o --format=columns | cut -d " " -f 1 | tail -n +3 | xargs -n 1 pip3 install -U	
 }
 
 function update_python {
 	head -n 1 $(which pip)
 	echo "Checking setuptools, pip, and wheel"
-	pip install -U setuptools pip wheel
+	python -m pip install -U setuptools pip wheel
 	echo "Checking for outdated packages"
-	pip list -o --format=columns | cut -d " " -f 1 | tail -n +3 | xargs -n 1 pip install -U
+	python -m pip list -o --format=columns | cut -d " " -f 1 | tail -n +3 | xargs -n 1 pip install -U
 }
 
 function update_ruby {
@@ -295,6 +295,6 @@ alias stop-redis="redis-cli shutdown"
 alias find-stoppables="ps aux | egrep 'sql|neo4j' --color"
 
 # added by travis gem
-[ -f /Users/cthoyt/.travis/travis.sh ] && source /Users/cthoyt/.travis/travis.sh
+[ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh
 
 
