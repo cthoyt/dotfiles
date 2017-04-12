@@ -23,23 +23,19 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 export RDBASE="/usr/local/share/RDKit"
-export JAVA_HOME="`/usr/libexec/java_home -v 1.8`"
-export UIMA_HOME=~/dev/apache-uima
+
+if [ -f /usr/libexec/java_home ]; then
+	export JAVA_HOME="`/usr/libexec/java_home -v 1.8`"
+fi
 
 [ -f ~/.bash_secrets ] && source ~/.bash_secrets
 
 # Get virtualenv ready
-export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
+export VIRTUALENVWRAPPER_PYTHON="$(which python3)"
 [ -f /usr/local/bin/virtualenvwrapper.sh ] && source /usr/local/bin/virtualenvwrapper.sh
 
-command_exists () {
-  command "$1" &> /dev/null ;
-}
-
 # Get rbenv ready
-if command_exists rbenv; then
-	eval "$(rbenv init -)"
-fi
+[ -x "$(command -v rbenv)" ] && eval "$(rbenv init -)"
 
 # Get RVM ready
 # export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
@@ -204,7 +200,6 @@ function update_brew {
 }
 
 function update_python3 {
-	head -n 1 $(which python3)
 	echo "Checking setuptools, pip, and wheel"
 	python3 -m pip install -U setuptools pip wheel
 	echo "Checking for outdated packages"
@@ -212,7 +207,6 @@ function update_python3 {
 }
 
 function update_python {
-	head -n 1 $(which python)
 	echo "Checking setuptools, pip, and wheel"
 	python -m pip install -U setuptools pip wheel
 	echo "Checking for outdated packages"
