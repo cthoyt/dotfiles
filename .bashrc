@@ -51,7 +51,7 @@ export PS2="> "
 
 # Edit .bashrc
 function ebrc {
-	mate -w ~/.bashrc
+	$EDITOR ~/.bashrc
 	cp ~/.bashrc $DOTFILES/
 	source ~/.bashrc
 	echo "nailed it"
@@ -59,7 +59,7 @@ function ebrc {
 
 # Edit .Rprofile
 function errc {
-	mate -w ~/.Rprofile
+	$EDITOR ~/.Rprofile
 	cp ~/.Rprofile $DOTFILES/
 	echo "nailed it"
 }
@@ -150,7 +150,7 @@ function jnbc {
 	jupyter nbconvert "$1" --to pdf --template custom/no_code.tplx --output-dir=~/Downloads
 }
 
-alias edit-sshconfig='mate ~/.ssh/config'
+alias edit-sshconfig='$EDITOR ~/.ssh/config'
 alias qq='exit'
 alias cd-jupyter-templates='cd /usr/local/lib/python3.5/site-packages/nbconvert/templates/latex'
 alias resource="source ~/.bash_profile"
@@ -204,15 +204,15 @@ function update_brew {
 }
 
 function update_python3 {
-	head -n 1 $(which pip3)
+	head -n 1 $(which python3)
 	echo "Checking setuptools, pip, and wheel"
 	python3 -m pip install -U setuptools pip wheel
 	echo "Checking for outdated packages"
-	python3 -m pip list -o --format=columns | cut -d " " -f 1 | tail -n +3 | xargs -n 1 pip3 install -U	
+	python3 -m pip list -o --format=columns | cut -d " " -f 1 | tail -n +3 | xargs -n 1 python3 -m pip install -U	
 }
 
 function update_python {
-	head -n 1 $(which pip)
+	head -n 1 $(which python)
 	echo "Checking setuptools, pip, and wheel"
 	python -m pip install -U setuptools pip wheel
 	echo "Checking for outdated packages"
