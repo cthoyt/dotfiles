@@ -221,6 +221,7 @@ function update_ruby {
 }
 
 function update_all {
+	d=$(pwd)
 	echo "$(tput setaf 5)Updating Brew$(tput sgr0)"	
 	update_brew
 	echo
@@ -232,6 +233,12 @@ function update_all {
 	echo
 	echo "$(tput setaf 5)Updating Ruby$(tput sgr0)"
 	update_ruby
+	echo
+	echo "$(tput setaf 5)Pulling git repos$(tput sgr0)"
+	cd $PYBEL_RESOURCES_BASE; git pull
+	cd $BMS_BASE; git pull
+	cd $d
+	unset d
 }
 
 alias u="update_all"
@@ -259,7 +266,7 @@ function reinstall_irkernel {
 }
 
 function grepall {
-	grep -r $1 . --color=auto
+	grep -rn $1 . --color=auto
 }
 
 # startables and stoppables
