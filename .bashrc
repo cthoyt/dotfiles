@@ -220,25 +220,31 @@ function update_ruby {
 	gem cleanup
 }
 
-function update_all {
+function update_repos {
 	d=$(pwd)
+	cd $PYBEL_RESOURCES_BASE; git pull
+	cd $BMS_BASE; git pull
+	cd $PYBEL_BASE; git pull
+	cd $PYBEL_TOOLS_BASE; git pull
+	cd $d
+	unset d
+}
+
+function update_all {
 	echo "$(tput setaf 5)Updating Brew$(tput sgr0)"	
 	update_brew
 	echo
-	echo "$(tput setaf 5)Updating Python 3$(tput sgr0)"
+	echo "$(tput setaf 5)Updating python3 packages$(tput sgr0)"
 	update_python3
 	echo
-	echo "$(tput setaf 5)Updating Python 2$(tput sgr0)"
+	echo "$(tput setaf 5)Updating python2 packages$(tput sgr0)"
 	update_python
 	echo
-	echo "$(tput setaf 5)Updating Ruby$(tput sgr0)"
-	update_ruby
+	echo "$(tput setaf 5)Updating ruby$(tput sgr0)"
+	[ -x "$(command -v rbenv)" ] && update_ruby
 	echo
 	echo "$(tput setaf 5)Pulling git repos$(tput sgr0)"
-	cd $PYBEL_RESOURCES_BASE; git pull
-	cd $BMS_BASE; git pull
-	cd $d
-	unset d
+	update_repos
 }
 
 alias u="update_all"
@@ -275,7 +281,8 @@ function grepall {
 export PGDATA='/usr/local/var/postgres'
 export PGHOST=localhost
 
-alias start-postgres='pg_ctl -l $PGDATA/server.log start'
+#alias start-postgres='pg_ctl -l $PGDATA/server.log start'
+alias start-postgres='pg_ctl -D /usr/local/var/postgres -l logfile start'
 alias stop-postgres='pg_ctl stop -m fast'
 alias show-postgres-status='pg_ctl status'
 alias restart-postgres='pg_ctl reload'
@@ -294,6 +301,8 @@ alias stop-redis="redis-cli shutdown"
 
 # find
 alias find-stoppables="ps aux | egrep 'sql|neo4j' --color"
+
+alias pybelweb="python3 -m pybel_tools web"
 
 # added by travis gem
 [ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh
