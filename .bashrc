@@ -272,7 +272,7 @@ function reinstall_irkernel {
 }
 
 function grepall {
-	grep -rn $1 . --color=auto
+	grep -I -rn $1 . --color=auto
 }
 
 # startables and stoppables
@@ -298,6 +298,10 @@ alias stop-neo4j="neo4j stop"
 # redis message broker
 alias start-redis="redis-server"
 alias stop-redis="redis-cli shutdown"
+
+
+# rabbitmq message broker
+alias start-rabbitmq="rabbitmq-server"
 
 # find
 alias find-stoppables="ps aux | egrep 'sql|neo4j' --color"
