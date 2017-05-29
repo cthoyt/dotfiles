@@ -180,6 +180,7 @@ fi
 
 alias ..="cd .."
 alias ...="cd ../.."
+alias ....="cd ../../.."
 alias cool="echo cool"
 alias pyserver="cd $WEBSITE; python -m SimpleHTTPServer"
 alias tree="tree -C"
