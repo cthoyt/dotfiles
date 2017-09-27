@@ -181,7 +181,7 @@ fi
 alias ..="cd .."
 alias ...="cd ../.."
 alias cool="echo cool"
-alias pyserver="cd $WEBSITE; python3 -m SimpleHTTPServer"
+alias pyserver="cd $WEBSITE; python -m SimpleHTTPServer"
 alias tree="tree -C"
 
 alias jnn="python3 -m jupyter notebook --notebook-dir $NOTEBOOKS"
@@ -208,9 +208,9 @@ function update_python3 {
 
 function update_python {
 	echo "Checking setuptools, pip, and wheel"
-	python2 -m pip install -U setuptools pip wheel
+	python -m pip install -U setuptools pip wheel
 	echo "Checking for outdated packages"
-	python2 -m pip list -o --format=columns | cut -d " " -f 1 | tail -n +3 | xargs -n 1 pip install -U
+	python -m pip list -o --format=columns | cut -d " " -f 1 | tail -n +3 | xargs -n 1 pip install -U
 }
 
 function update_ruby {
@@ -272,7 +272,7 @@ function reinstall_irkernel {
 }
 
 function grepall {
-	grep -I -rn $1 . --color=auto
+	grep -rn $1 . --color=auto
 }
 
 # startables and stoppables
@@ -299,29 +299,12 @@ alias stop-neo4j="neo4j stop"
 alias start-redis="redis-server"
 alias stop-redis="redis-cli shutdown"
 
-
-# rabbitmq message broker
-alias start-rabbitmq="rabbitmq-server"
-
 # find
 alias find-stoppables="ps aux | egrep 'sql|neo4j' --color"
 
-alias pybelweb="python3 -m pybel_web run -vv"
+alias pybelweb="python3 -m pybel_tools web"
 
 # added by travis gem
 [ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh
 
 
-# Docker aliases
-function docker-container-rm {
-	docker stop $(docker ps -aq)
-	docker rm $(docker ps -aq)
-}
-alias docker-volumes-rm="docker volume rm $(docker volume ls -q)"
-alias docker-images-rm="docker rmi $(docker images ls -aq)"
-
-function docker-nuke {
-	docker-container-rm
-	docker-volumes-rm
-	docker-images-rm
-}
