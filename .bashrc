@@ -24,9 +24,18 @@ export LANG=en_US.UTF-8
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 export RDBASE="/usr/local/share/RDKit"
 
+# postgres (currently running automatically in background)
+export PGDATA='/usr/local/var/postgres'
+export PGHOST=localhost
+
 if [ -f /usr/libexec/java_home ]; then
 	export JAVA_HOME="`/usr/libexec/java_home -v 1.8`"
+	export CLASSPATH=$DEV/jars/*:$CLASSPATH
 fi
+
+# customize bash prompt (http://bneijt.nl/blog/post/add-a-timestamp-to-your-bash-prompt/)
+export PS1="$(tput setaf 5)[\!] $(tput setaf 1)[\A] $(tput setaf 2)[\u@\h:$(tput setaf 3)\w$(tput setaf 2)]$(tput setaf 4)\n\$ $(tput sgr0)"
+export PS2="> "
 
 [ -f ~/.bash_secrets ] && source ~/.bash_secrets
 
@@ -37,13 +46,15 @@ export VIRTUALENVWRAPPER_PYTHON="$(which python3)"
 # Get rbenv ready
 [ -x "$(command -v rbenv)" ] && eval "$(rbenv init -)"
 
+# added by travis gem
+[ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh
+
 # Get RVM ready
 # export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 # [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
-# customize bash prompt (http://bneijt.nl/blog/post/add-a-timestamp-to-your-bash-prompt/)
-export PS1="$(tput setaf 5)[\!] $(tput setaf 1)[\A] $(tput setaf 2)[\u@\h:$(tput setaf 3)\w$(tput setaf 2)]$(tput setaf 4)\n\$ $(tput sgr0)"
-export PS2="> "
+# Import aliases
+[ -f ~/.bash_aliases ] && source ~/.bash_aliases
 
 # Edit .bashrc
 function ebrc {
@@ -89,7 +100,7 @@ function hw {
 # http://matplotlib.org/users/customizing.html#customizing-with-matplotlibrc-files
 
 function save_rcs {
-	for i in ~/.profile ~/.bashrc ~/.Rprofile ~/.bash_profile ~/.gemrc ~/.gitignore_global ~/.gitconfig; do
+	for i in ~/.profile ~/.bashrc ~/.bash_profile ~/.bash_aliases ~/.Rprofile ~/.gemrc ~/.gitignore_global ~/.gitconfig; do
 		cp $i $DOTFILES/
 	done
 	
@@ -102,7 +113,7 @@ function save_rcs {
 
 # The repopulate function should do the opposite of save-rcs
 function repopulate_rcs {
-	for i in .profile .bashrc .Rprofile .bash_profile .gemrc .gitignore_global .gitconfig; do
+	for i in .profile .bashrc .bash_profile .bash_aliases .Rprofile .gemrc .gitignore_global .gitconfig; do
 		cp $DOTFILES/$i ~/
 	done
 	
@@ -167,25 +178,14 @@ function makea {
 	done
 }
 
-if [ "$(uname)" = 'Linux' ] ; then
-    alias ls='ls --color -F'
-	alias la='ls -alh --color'
-elif [ "$(uname)" = 'Darwin' ] ; then
-    alias ls='ls -FG' #default color + directory flags
-	alias la='ls -alh'
-elif [[ "$(uname)" == "CYGWIN"* ]] ; then
-	alias ls='ls -F --color'
-	alias la='ls -alh --color'
-fi
 
-alias ..="cd .."
-alias ...="cd ../.."
 alias cool="echo cool"
 alias pyserver="cd $WEBSITE; python3 -m SimpleHTTPServer"
 alias tree="tree -C"
 
 alias jnn="python3 -m jupyter notebook --notebook-dir $NOTEBOOKS"
 alias jnd="python3 -m jupyter notebook --notebook-dir $DEV"
+alias pybelweb="python3 -m pybel_web run -vv"
 
 alias showallfiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
 alias hideallfiles='defaults write com.apple.finder AppleShowAllFiles NO;  killall Finder /System/Library/CoreServices/Finder.app'
@@ -206,11 +206,11 @@ function update_python3 {
 	python3 -m pip list -o --format=columns | cut -d " " -f 1 | tail -n +3 | xargs -n 1 python3 -m pip install -U	
 }
 
-function update_python {
+function update_python2 {
 	echo "Checking setuptools, pip, and wheel"
 	python2 -m pip install -U setuptools pip wheel
 	echo "Checking for outdated packages"
-	python2 -m pip list -o --format=columns | cut -d " " -f 1 | tail -n +3 | xargs -n 1 pip install -U
+	python2 -m pip list -o --format=columns | cut -d " " -f 1 | tail -n +3 | xargs -n 1 python2 -m pip install -U
 }
 
 function update_ruby {
@@ -238,7 +238,7 @@ function update_all {
 	update_python3
 	echo
 	echo "$(tput setaf 5)Updating python2 packages$(tput sgr0)"
-	update_python
+	update_python2
 	echo
 	echo "$(tput setaf 5)Updating ruby$(tput sgr0)"
 	[ -x "$(command -v rbenv)" ] && update_ruby
@@ -277,9 +277,8 @@ function grepall {
 
 # startables and stoppables
 
-# postgres (currently running automatically in background)
-export PGDATA='/usr/local/var/postgres'
-export PGHOST=localhost
+# find
+alias find-stoppables="ps aux | egrep 'sql|neo4j' --color"
 
 #alias start-postgres='pg_ctl -l $PGDATA/server.log start'
 alias start-postgres='pg_ctl -D /usr/local/var/postgres -l logfile start'
@@ -302,15 +301,6 @@ alias stop-redis="redis-cli shutdown"
 
 # rabbitmq message broker
 alias start-rabbitmq="rabbitmq-server"
-
-# find
-alias find-stoppables="ps aux | egrep 'sql|neo4j' --color"
-
-alias pybelweb="python3 -m pybel_web run -vv"
-
-# added by travis gem
-[ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh
-
 
 # Docker aliases
 function docker-container-rm {
