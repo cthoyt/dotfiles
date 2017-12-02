@@ -222,11 +222,21 @@ function update_ruby {
 
 function update_repos {
 	d=$(pwd)
-	cd $PYBEL_RESOURCES_BASE; git pull
-	cd $BMS_BASE; git pull
-	cd $PYBEL_BASE; git pull
-	cd $PYBEL_TOOLS_BASE; git pull
-	cd $d
+	
+	cd $DEV
+	
+	for sd in $(ls); do
+		cd $sd
+		echo updating $(pwd)
+		git pull
+		cd $DEV
+	done
+	
+	#cd $PYBEL_RESOURCES_BASE; git pull
+	#cd $BMS_BASE; git pull
+	#cd $PYBEL_BASE; git pull
+	#cd $PYBEL_TOOLS_BASE; git pull
+	#cd $d
 	unset d
 }
 
