@@ -288,40 +288,42 @@ function grepall {
 # startables and stoppables
 
 # find
-alias find-stoppables="ps aux | egrep 'sql|neo4j' --color"
+alias find_stoppables="ps aux | egrep 'sql|neo4j' --color"
 
 #alias start-postgres='pg_ctl -l $PGDATA/server.log start'
-alias start-postgres='pg_ctl -D /usr/local/var/postgres -l logfile start'
-alias stop-postgres='pg_ctl stop -m fast'
-alias show-postgres-status='pg_ctl status'
-alias restart-postgres='pg_ctl reload'
+alias start_postgres='pg_ctl -D /usr/local/var/postgres -l logfile start'
+alias stop_postgres='pg_ctl stop -m fast'
+alias show_postgres-status='pg_ctl status'
+alias restart_postgres='pg_ctl reload'
 
 # mysql (http://stackoverflow.com/questions/11091414/how-to-stop-mysqld)
-alias start-mysql="mysql.server start"
-alias stop-mysql="mysqladmin -u root shutdown"
+alias start_mysql="mysql.server start"
+alias stop_mysql="mysqladmin -u root shutdown"
 
 # neo4j
-alias start-neo4j="neo4j start"
-alias stop-neo4j="neo4j stop"
+alias start_neo4j="neo4j start"
+alias stop_neo4j="neo4j stop"
 
 # redis message broker
-alias start-redis="redis-server"
-alias stop-redis="redis-cli shutdown"
+alias start_redis="redis-server"
+alias stop_redis="redis-cli shutdown"
 
+
+alias git_pull_all="find . -type d -depth 1 -exec git --git-dir={}/.git --work-tree=$PWD/{} pull origin master \;"
 
 # rabbitmq message broker
-alias start-rabbitmq="rabbitmq-server"
+alias start_rabbitmq="rabbitmq-server"
 
 # Docker aliases
-function docker-container-rm {
+function docker_container_rm {
 	docker stop $(docker ps -aq)
 	docker rm $(docker ps -aq)
 }
-alias docker-volumes-rm="docker volume rm $(docker volume ls -q)"
-alias docker-images-rm="docker rmi $(docker images ls -aq)"
 
-function docker-nuke {
-	docker-container-rm
-	docker-volumes-rm
-	docker-images-rm
+function docker_nuke {
+	docker-container_rm
+	#docker-volumes-rm
+	docker volume rm $(docker volume ls -q)
+	# docker-images-rm
+	docker rmi $(docker images ls -aq)
 }
