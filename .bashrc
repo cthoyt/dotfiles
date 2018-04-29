@@ -206,6 +206,11 @@ function update_python3 {
 	python3 -m pip list -o --format=columns | cut -d " " -f 1 | tail -n +3 | xargs -n 1 python3 -m pip install -U	
 }
 
+function cleansing_python3 {
+	echo "Deleting all packages"
+	python3 -m pip list --format=columns | cut -d " " -f 1 | tail -n +3 | grep "^pip\|setuptools\|wheel\|distribute$" -v | xargs -n 1 python3 -m pip uninstall -y	
+}
+
 function update_ruby {
 	head -n 1 $(which gem)
 	gem update --system
