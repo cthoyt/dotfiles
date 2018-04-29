@@ -223,11 +223,12 @@ function cleanse_python2 {
 
 function install_pipsi {
 	curl https://raw.githubusercontent.com/mitsuhiko/pipsi/master/get-pipsi.py | python3
+	pipsi install pipsi
 }
 
 function cleanse_pipsi {
-	# pipsi lists in a strange way, so it needs to be parsed
-	pipsi list | grep "^\s\sPackage" | cut -d "\"" -f 2 | xargs -n 1 pipsi uninstall --yes	
+	# pipsi lists in a strange way, so it needs to be parsed. Also, don't uninstall pipsi!
+	pipsi list | grep "^\s\sPackage" | cut -d "\"" -f 2 | grep "^pipsi$" -v | xargs -n 1 pipsi uninstall --yes	
 }
 
 function update_ruby {
