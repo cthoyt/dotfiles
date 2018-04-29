@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-export PATH=~/.local/bin:$PATH
+export PATH=~/.local/bin:/usr/local/sbin:$PATH
 
 export DEV=~/dev
 export DOTFILES=~/dev/dotfiles
@@ -183,9 +183,9 @@ alias cool="echo cool"
 alias pyserver="cd $WEBSITE; python3 -m SimpleHTTPServer"
 alias tree="tree -C"
 
-alias jnn="python3 -m jupyter notebook --notebook-dir $NOTEBOOKS"
-alias jnd="python3 -m jupyter notebook --notebook-dir $DEV"
-alias pybelweb="python3 -m pybel_web run -vv"
+alias jnn="jupyter notebook --notebook-dir $NOTEBOOKS"
+alias jnd="jupyter notebook --notebook-dir $DEV"
+alias pybelweb="pybel-web run -vv"
 
 alias showallfiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
 alias hideallfiles='defaults write com.apple.finder AppleShowAllFiles NO;  killall Finder /System/Library/CoreServices/Finder.app'
@@ -204,13 +204,6 @@ function update_python3 {
 	python3 -m pip install -U setuptools pip wheel
 	echo "Checking for outdated packages"
 	python3 -m pip list -o --format=columns | cut -d " " -f 1 | tail -n +3 | xargs -n 1 python3 -m pip install -U	
-}
-
-function update_python2 {
-	echo "Checking setuptools, pip, and wheel"
-	python2 -m pip install -U setuptools pip wheel
-	echo "Checking for outdated packages"
-	python2 -m pip list -o --format=columns | cut -d " " -f 1 | tail -n +3 | xargs -n 1 python2 -m pip install -U
 }
 
 function update_ruby {
@@ -321,9 +314,7 @@ function docker_container_rm {
 }
 
 function docker_nuke {
-	docker-container_rm
-	#docker-volumes-rm
+	docker_container_rm
 	docker volume rm $(docker volume ls -q)
-	# docker-images-rm
 	docker rmi $(docker images ls -aq)
 }
