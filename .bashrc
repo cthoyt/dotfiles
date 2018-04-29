@@ -206,9 +206,28 @@ function update_python3 {
 	python3 -m pip list -o --format=columns | cut -d " " -f 1 | tail -n +3 | xargs -n 1 python3 -m pip install -U	
 }
 
-function cleansing_python3 {
-	echo "Deleting all packages"
+function cleanse_python3 {
+	echo "Deleting all Python 3 packages"
 	python3 -m pip list --format=columns | cut -d " " -f 1 | tail -n +3 | grep "^pip\|setuptools\|wheel\|distribute$" -v | xargs -n 1 python3 -m pip uninstall -y	
+}
+
+function cleanse_venvs {
+	echo "Deleting all virtual environments"
+	rmvirtualenv $(lsvirtualenv -b)
+}
+
+function cleanse_python2 {
+	echo "Deleting all Python 2 packages"
+	python2 -m pip list --format=columns | cut -d " " -f 1 | tail -n +3 | grep "^pip\|setuptools\|wheel\|distribute$" -v | xargs -n 1 python2 -m pip uninstall -y	
+}
+
+function install_pipsi {
+	curl https://raw.githubusercontent.com/mitsuhiko/pipsi/master/get-pipsi.py | python3
+}
+
+function cleanse_pipsi {
+	# pipsi lists in a strange way, so it needs to be parsed
+	pipsi list | grep "^\s\sPackage" | cut -d "\"" -f 2 | xargs -n 1 pipsi uninstall --yes	
 }
 
 function update_ruby {
