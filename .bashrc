@@ -201,7 +201,7 @@ function update_brew {
 
 function update_python3 {
 	echo "Checking setuptools, pip, and wheel"
-	python3 -m pip install -U setuptools pip wheel
+	python3 -m pip install --upgrade setuptools pip wheel
 	echo "Checking for outdated packages"
 	python3 -m pip list -o --format=columns | cut -d " " -f 1 | tail -n +3 | xargs -n 1 python3 -m pip install -U	
 }
@@ -218,23 +218,12 @@ function update_ruby {
 	gem cleanup
 }
 
+alias git_pull_all="find . -type d -depth 1 -exec git --git-dir={}/.git --work-tree=$PWD/{} pull origin master \;"
+
 function update_repos {
-	d=$(pwd)
-	
+	d=$(pwd) # save current working directory
 	cd $DEV
-	
-	for sd in $(ls); do
-		cd $sd
-		echo updating $(pwd)
-		git pull
-		cd $DEV
-	done
-	
-	#cd $PYBEL_RESOURCES_BASE; git pull
-	#cd $BMS_BASE; git pull
-	#cd $PYBEL_BASE; git pull
-	#cd $PYBEL_TOOLS_BASE; git pull
-	#cd $d
+	git_pull_all
 	unset d
 }
 
@@ -305,9 +294,6 @@ alias stop_neo4j="neo4j stop"
 # redis message broker
 alias start_redis="redis-server"
 alias stop_redis="redis-cli shutdown"
-
-
-alias git_pull_all="find . -type d -depth 1 -exec git --git-dir={}/.git --work-tree=$PWD/{} pull origin master \;"
 
 # rabbitmq message broker
 alias start_rabbitmq="rabbitmq-server"
