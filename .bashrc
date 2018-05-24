@@ -231,6 +231,11 @@ function cleanse_pipsi {
 	pipsi list | grep "^\s\sPackage" | cut -d "\"" -f 2 | grep "^pipsi$" -v | xargs -n 1 pipsi uninstall --yes	
 }
 
+function uninstall_pipsi {
+	cleanse_pipsi
+	pipsi uninstall pipsi --yes
+}
+
 function update_ruby {
 	head -n 1 $(which gem)
 	gem update --system
