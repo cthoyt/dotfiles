@@ -14,10 +14,8 @@ export PYBEL_TOOLS_BASE=~/dev/pybel-tools
 export PYBEL_RESOURCES_BASE=~/dev/pybel-resources
 export BMS_BASE=~/dev/bms
 export NEUROMMSIG_BASE=~/dev/neurommsig
-export PYBEL2CX_BASE=~/dev/pybel2cx
 export OWNCLOUD_BASE=~/ownCloud
-export BEL4IMOCEDE_DATA_PATH=~/dev/bms/BEL4IMOCEDE
-export BEL_COMMONS_EXAMPLES_OMICS_DATA_DIR=~/dev/bel-commons-manuscript/data
+
 export EDITOR="/usr/local/bin/mate -w"
 export PYTHONPATH="/usr/local/lib/python3:$PYTHONPATH"
 export LC_ALL=en_US.UTF-8
@@ -31,8 +29,7 @@ export PGHOST=localhost
 
 if [ -f /usr/libexec/java_home ]; then
 	export JAVA_HOME="`/usr/libexec/java_home -v 1.8`"
-	export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF8"
-	export CLASSPATH="/Users/cthoyt/dev/jars/reach-82631d-biores-e9ee36.jar:$CLASSPATH"
+	export CLASSPATH=$DEV/jars/*:$CLASSPATH
 fi
 
 # customize bash prompt (http://bneijt.nl/blog/post/add-a-timestamp-to-your-bash-prompt/)
@@ -57,8 +54,6 @@ export VIRTUALENVWRAPPER_PYTHON="$(which python3)"
 
 # Import aliases
 [ -f ~/.bash_aliases ] && source ~/.bash_aliases
-
-alias git_pull_all="find . -type d -depth 1 -exec git --git-dir={}/.git --work-tree=$PWD/{} pull origin master \;"
 
 # Edit .bashrc
 function ebrc {
@@ -107,9 +102,9 @@ function save_rcs {
 	for i in ~/.profile ~/.bashrc ~/.bash_profile ~/.bash_aliases ~/.Rprofile ~/.gemrc ~/.gitignore_global ~/.gitconfig; do
 		cp $i $DOTFILES/
 	done
-
+	
 	cp ~/.matplotlib/matplotlibrc $DOTFILES/matplotlibrc
-
+	
 	cp -r ~/.jupyter/ $DOTFILES/jupyter/
 	cp -r ~/.ipython/ $DOTFILES/ipython/
 	cp -r /usr/local/lib/python3.6/site-packages/nbconvert/templates/latex/custom/ $DOTFILES/latex_templates/
@@ -120,12 +115,12 @@ function repopulate_rcs {
 	for i in .profile .bashrc .bash_profile .bash_aliases .Rprofile .gemrc .gitignore_global .gitconfig; do
 		cp $DOTFILES/$i ~/
 	done
-
+	
 	cp $DOTFILES/matplotlibrc ~/.matplotlib/matplotlibrc
-
+	
 	cp -r $DOTFILES/jupyter/ ~/.jupyter/
 	cp -r $DOTFILES/ipython/  ~/.ipython/
-	cp -r $DOTFILES/latex_templates/ /usr/local/lib/python3.6/site-packages/nbconvert/templates/latex/custom/
+	cp -r $DOTFILES/latex_templates/ /usr/local/lib/python3.6/site-packages/nbconvert/templates/latex/custom/ 
 }
 
 function notify {
@@ -138,7 +133,7 @@ function notify {
 	curl -X POST -H "Content-Type: application/json" -d "{\"value1\":\"$*\",\"value2\":\"$res\"}" "https://maker.ifttt.com/trigger/script_done/with/key/$IFTTT_KEY" > /dev/null 2>&1
 }
 
-function notify_xargs {
+function notify_xargs {	
 	name=$1
 	shift
 	echo "$@" | sh
@@ -207,12 +202,12 @@ function update_python3 {
 	echo "Checking setuptools, pip, and wheel"
 	python3 -m pip install --upgrade setuptools pip wheel
 	echo "Checking for outdated packages"
-	python3 -m pip list -o --format=columns | cut -d " " -f 1 | tail -n +3 | xargs -n 1 python3 -m pip install -U
+	python3 -m pip list -o --format=columns | cut -d " " -f 1 | tail -n +3 | xargs -n 1 python3 -m pip install -U	
 }
 
 function cleanse_python3 {
 	echo "Deleting all Python 3 packages"
-	python3 -m pip list --format=columns | cut -d " " -f 1 | tail -n +3 | grep "^pip\|setuptools\|wheel\|distribute$" -v | xargs -n 1 python3 -m pip uninstall -y
+	python3 -m pip list --format=columns | cut -d " " -f 1 | tail -n +3 | grep "^pip\|setuptools\|wheel\|distribute$" -v | xargs -n 1 python3 -m pip uninstall -y	
 }
 
 function cleanse_venvs {
@@ -223,17 +218,19 @@ function cleanse_venvs {
 
 function cleanse_python2 {
 	echo "Deleting all Python 2 packages"
-	python2 -m pip list --format=columns | cut -d " " -f 1 | tail -n +3 | grep "^pip\|setuptools\|wheel\|distribute$" -v | xargs -n 1 python2 -m pip uninstall -y
+	python2 -m pip list --format=columns | cut -d " " -f 1 | tail -n +3 | grep "^pip\|setuptools\|wheel\|distribute$" -v | xargs -n 1 python2 -m pip uninstall -y	
 }
 
 function install_pipsi {
 	curl https://raw.githubusercontent.com/mitsuhiko/pipsi/master/get-pipsi.py | python3
-	pipsi install pipsi
+	#pipsi install pipsi
+	#python -m pip uninstall pipsi
+	#deactivate
 }
 
 function cleanse_pipsi {
 	# pipsi lists in a strange way, so it needs to be parsed. Also, don't uninstall pipsi!
-	pipsi list | grep "^\s\sPackage" | cut -d "\"" -f 2 | grep "^pipsi$" -v | xargs -n 1 pipsi uninstall --yes
+	pipsi list | grep "^\s\sPackage" | cut -d "\"" -f 2 | grep "^pipsi$" -v | xargs -n 1 pipsi uninstall --yes	
 }
 
 function uninstall_pipsi {
@@ -244,34 +241,21 @@ function uninstall_pipsi {
 function update_ruby {
 	head -n 1 $(which gem)
 	gem update --system
-	gem update
+	gem update 
 	gem cleanup
 }
 
 alias git_pull_all="find . -type d -depth 1 -exec git --git-dir={}/.git --work-tree=$PWD/{} pull origin master \;"
 
 function update_repos {
-	echo "updating repos"
-	d=$(pwd)
+	d=$(pwd) # save current working directory
 	cd $DEV
-
-	for sd in $(ls); do
-		if [ -d "$sd" ]; then
-			cd $sd
-			if [ -d "$sd/.git" ]; then
-				echo "pulling $sd"
-				git pull
-			fi
-		fi
-		cd $DEV
-	done
-
-	cd $d
+	git_pull_all
 	unset d
 }
 
 function update_all {
-	echo "$(tput setaf 5)Updating Brew$(tput sgr0)"
+	echo "$(tput setaf 5)Updating Brew$(tput sgr0)"	
 	update_brew
 	echo
 	echo "$(tput setaf 5)Updating python3 packages$(tput sgr0)"
