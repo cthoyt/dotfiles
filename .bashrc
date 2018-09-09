@@ -36,7 +36,7 @@ if [ -f /usr/libexec/java_home ]; then
 fi
 
 # customize bash prompt (http://bneijt.nl/blog/post/add-a-timestamp-to-your-bash-prompt/)
-export PS1="$(tput setaf 5)[\!] $(tput setaf 1)[\A] $(tput setaf 2)[\u@\h:$(tput setaf 3)\w$(tput setaf 2)]$(tput setaf 4)\n\$ $(tput sgr0)"
+export PS1="\[$(tput setaf 5)\][\!]\[$(tput setaf 1)\] [\A]\[$(tput setaf 2)\] [\u@\h:\[$(tput setaf 3)\]\w\[$(tput setaf 2)\]]\[$(tput setaf 4)\]\n\$ \[$(tput sgr0)\]"
 export PS2="> "
 
 [ -f ~/.bash_secrets ] && source ~/.bash_secrets
